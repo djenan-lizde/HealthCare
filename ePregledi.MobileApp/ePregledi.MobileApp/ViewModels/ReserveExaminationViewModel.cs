@@ -35,7 +35,7 @@ namespace ePregledi.MobileApp.ViewModels
                         await Application.Current.MainPage.DisplayAlert("Informacija", "Trenutno nemamo doktora", "OK");
                 }
 
-                if (SelectedDoctor != null)
+                if (SelectedDoctor != null && APIService.UserId != SelectedDoctor.DoctorId)
                 {
                     if (ExaminationDate > DateTime.Now.AddDays(2) && APIService.UserId != SelectedDoctor.DoctorId)
                     {
