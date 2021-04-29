@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ePregledi.MobileApp.Views.ReserveExaminationPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Rezerviraj pregled" FontSize="Header"
+                HorizontalOptions="CenterAndExpand" />
+
+            <Label HorizontalOptions="CenterAndExpand" Text="Datum pregleda" FontSize="Medium"></Label>
+            <DatePicker Date="{Binding ExaminationDate}"></DatePicker>
+
+            <Label HorizontalOptions="CenterAndExpand" Text="Satnica pregleda" FontSize="Medium"></Label>
+            <TimePicker Time="{Binding SelectedTime}"></TimePicker>
+
+            <Picker HorizontalOptions="CenterAndExpand" Title="Izaberite doktora" FontSize="Medium"
+                    ItemsSource="{Binding Doctors}" SelectedItem="{Binding SelectedDoctor}" 
+                    ItemDisplayBinding="{Binding FullName}"></Picker>
+
+            <Button Command="{Binding SaveCommand}" Text="Rezerviraj" BackgroundColor="RoyalBlue" TextColor="White"></Button>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
