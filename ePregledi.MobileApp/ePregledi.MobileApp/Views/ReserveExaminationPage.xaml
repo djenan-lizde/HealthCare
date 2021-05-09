@@ -7,6 +7,9 @@
             <Label Text="Rezerviraj pregled" FontSize="Header"
                 HorizontalOptions="CenterAndExpand" />
 
+            <Label HorizontalOptions="CenterAndExpand" Text="Prijedlog doktora" FontSize="Medium"></Label>
+            <Entry Text="{Binding RecommendedDoctor}" FontSize="Medium" IsReadOnly="True" HorizontalTextAlignment="Center"></Entry>
+
             <Label HorizontalOptions="CenterAndExpand" Text="Datum pregleda" FontSize="Medium"></Label>
             <DatePicker Date="{Binding ExaminationDate}"></DatePicker>
 

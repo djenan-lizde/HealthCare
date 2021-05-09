@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using ePregledi.Models.Enums;
+using System.IO;
 
 namespace ePregledi.MobileApp.ViewModels
 {
@@ -32,6 +33,7 @@ namespace ePregledi.MobileApp.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Greska", "Molimo popunite sva polja", "OK");
                 return;
             }
+
             try
             {
                 var user = new UserRegistrationModel
@@ -44,7 +46,7 @@ namespace ePregledi.MobileApp.ViewModels
                     Username = Username,
                     DateOfBirth = DateOfBirth,
                     PhoneNumber = PhoneNumber,
-                    //Photo = ProfilePhoto
+                    //Photo = ProfilePhoto != null ? ProfilePhoto: new byte[0]
                 };
 
                 user.Gender = Gender == "Male" ? Enums.Gender.Male : Enums.Gender.Female;
@@ -60,11 +62,18 @@ namespace ePregledi.MobileApp.ViewModels
             }
         }
 
-        ImageSource _profilePhoto = null;
-        public ImageSource ProfilePhoto
+        Image _profilePhoto = null;
+        public Image ProfilePhoto
         {
             get { return _profilePhoto; }
-            set { SetProperty(ref _profilePhoto, value); }
+            set
+            {
+                if (_profilePhoto != value)
+                {
+                    _profilePhoto = value;
+                    OnPropertyChanged("ProfilePhoto");
+                }
+            }
         }
 
         string _passwordconfirmation = string.Empty;

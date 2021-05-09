@@ -101,7 +101,7 @@ namespace ePregledi.API.Services
                 DateOfBirth = userRegister.DateOfBirth,
                 Gender = userRegister.Gender,
                 PhoneNumber = userRegister.PhoneNumber,
-                Photo = userRegister.Photo
+                Photo = userRegister.Photo ?? new byte[0]
             };
 
             user.PasswordSalt = HashGenSalt.GenerateSalt();
@@ -122,6 +122,5 @@ namespace ePregledi.API.Services
 
             return newUser;
         }
-
     }
 }

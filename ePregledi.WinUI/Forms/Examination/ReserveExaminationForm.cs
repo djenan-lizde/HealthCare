@@ -28,6 +28,13 @@ namespace ePregledi.WinUI.Forms.Examination
             CmbDoctors.DataSource = result;
             CmbDoctors.ValueMember = "DoctorId";
             CmbDoctors.DisplayMember = "FullName";
+
+            var doctor = await _apiServiceUsers.GetById<DoctorViewModel>(APIService.UserId, "doctor/recommend");
+
+            if (doctor == null)
+                txtRecomDoctor.Text = "No recommendation";
+
+            txtRecomDoctor.Text = doctor.FullName;
         }
 
         private async void BtnReserve_Click(object sender, EventArgs e)

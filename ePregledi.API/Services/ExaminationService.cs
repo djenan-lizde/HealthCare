@@ -88,47 +88,49 @@ namespace ePregledi.API.Services
         }
         public DoctorViewModel RecommendDoctor(int patientId)
         {
-            DoctorViewModel doctor = _context.Examinations
+            var doctor = _context.Examinations
                 .Include(x => x.Doctor)
-                .Select(x => new
+                .Select(x => new DoctorViewModel
                 {
-                    x.DoctorId,
-                    x.Doctor.FirstName,
-                    x.Doctor.LastName,
-                    NumberOfExaminations = _context.Examinations.Count(y => y.PatientId == patientId && y.DoctorId == x.DoctorId)
+                    DoctorId = x.DoctorId,
+                    FirstName = x.Doctor.FirstName,
+                    LastName = x.Doctor.LastName,
+                    NumberOfExaminations = _context.Examinations.Count(y => y.PatientId == patientId)
                 })
                 .OrderByDescending(x => x.NumberOfExaminations)
-                .GroupBy(x => x.DoctorId)
-                .Take(1) as DoctorViewModel;
+                .Take(1)
+                .FirstOrDefault();
 
-            if (doctor != null)
+            if (doctor != null && doctor.NumberOfExaminations > 0)
                 return doctor;
 
             doctor = _context.Examinations
                 .Include(x => x.Doctor)
-                .Select(x => new
+                .Select(x => new DoctorViewModel
                 {
-                    x.DoctorId,
-                    x.Doctor.FirstName,
-                    x.Doctor.LastName,
-                    AverageRating = _context.Examinations.Where(y => y.DoctorId == x.DoctorId).Average(y => y.Rating)
+                    DoctorId = x.DoctorId,
+                    FirstName = x.Doctor.FirstName,
+                    LastName = x.Doctor.LastName,
+                    AverageRating = _context.Examinations.Where(y => y.DoctorId == x.DoctorId && y.Rating != 0).Average(y => y.Rating)
                 })
-                .GroupBy(x => x.DoctorId)
-                .Take(1) as DoctorViewModel;
+                .OrderByDescending(x => x.AverageRating)
+                .Take(1)
+                .FirstOrDefault();
 
-            if (doctor != null)
+            if (doctor != null && doctor.AverageRating >= 1)
                 return doctor;
 
             return _context.Examinations
                 .Include(x => x.Doctor)
-                .Select(x => new
+                .Select(x => new DoctorViewModel
                 {
-                    x.DoctorId,
-                    x.Doctor.FirstName,
-                    x.Doctor.LastName,
+                    DoctorId = x.DoctorId,
+                    FirstName = x.Doctor.FirstName,
+                    LastName = x.Doctor.LastName,
                 })
                 .OrderByDescending(x => x.FirstName)
-                .Take(1) as DoctorViewModel;
+                .Take(1)
+                .FirstOrDefault();
         }
     }
 }

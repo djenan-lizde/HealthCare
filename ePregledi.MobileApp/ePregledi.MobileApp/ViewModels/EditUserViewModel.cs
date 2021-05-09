@@ -43,6 +43,15 @@ namespace ePregledi.MobileApp.ViewModels
         {
             try
             {
+                if (string.IsNullOrEmpty(Username)
+                    || string.IsNullOrEmpty(Email)
+                    || string.IsNullOrEmpty(FirstName)
+                    || string.IsNullOrEmpty(LastName)
+                    || string.IsNullOrEmpty(PhoneNumber))
+                {
+                    await Application.Current.MainPage.DisplayAlert("Greska", "Molimo popunite sva polja", "OK");
+                    return;
+                }
                 var userEdit = new UserEditViewModel
                 {
                     Email = Email,

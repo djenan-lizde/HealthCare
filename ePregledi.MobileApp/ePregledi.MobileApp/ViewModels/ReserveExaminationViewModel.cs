@@ -35,7 +35,14 @@ namespace ePregledi.MobileApp.ViewModels
                         await Application.Current.MainPage.DisplayAlert("Informacija", "Trenutno nemamo doktora", "OK");
                 }
 
-                if (SelectedDoctor != null && APIService.UserId != SelectedDoctor.DoctorId)
+                var doctor = await _apiServiceUsers.GetById<DoctorViewModel>(APIService.UserId, "doctor/recommend");
+
+                if (doctor == null)
+                    await Application.Current.MainPage.DisplayAlert("Informacija", "Nema prijedloga za doktora", "OK");
+
+                RecommendedDoctor = doctor.FullName;
+
+                if (SelectedDoctor != null)
                 {
                     if (ExaminationDate > DateTime.Now.AddDays(2) && APIService.UserId != SelectedDoctor.DoctorId)
                     {
@@ -82,6 +89,13 @@ namespace ePregledi.MobileApp.ViewModels
         {
             get { return _selectedDoctor; }
             set { SetProperty(ref _selectedDoctor, value); }
+        }
+
+        string _recommendedDoctor = null;
+        public string RecommendedDoctor
+        {
+            get { return _recommendedDoctor; }
+            set { SetProperty(ref _recommendedDoctor, value); }
         }
 
         DateTime _examinationDate = DateTime.Now;

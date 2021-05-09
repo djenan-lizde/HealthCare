@@ -77,7 +77,7 @@ namespace ePregledi.API.Controllers
                 PasswordHash = user.PasswordHash,
                 PasswordSalt = user.PasswordSalt,
                 PhoneNumber = userEdit.PhoneNumber,
-                Photo = userEdit.Photo,
+                Photo = userEdit.Photo ?? new byte[0],
                 Username = userEdit.Username
             }, user.Id);
 
@@ -108,8 +108,12 @@ namespace ePregledi.API.Controllers
         [HttpGet("doctor/recommend/{patientId}")]
         public DoctorViewModel RecommendDoctor([FromRoute] int patientId)
         {
-            _examinationService.RecommendDoctor(patientId);
-            return null;
+            var doctor = _examinationService.RecommendDoctor(patientId);
+
+            if (doctor == null)
+                return null;
+
+            return new DoctorViewModel { DoctorId = doctor.DoctorId, FirstName = doctor.FirstName, LastName = doctor.LastName };
         }
     }
 }

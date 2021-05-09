@@ -8,19 +8,19 @@
                 HorizontalOptions="CenterAndExpand" />
 
             <Label  Text="Username" FontSize="Medium"></Label>
-            <Entry  Text="{Binding Username}" ></Entry>
+            <Entry  Text="{Binding Username}" HorizontalTextAlignment="Center"></Entry>
 
             <Label  Text="Email" FontSize="Medium"></Label>
-            <Entry  Text="{Binding Email}"></Entry>
+            <Entry  Text="{Binding Email}" HorizontalTextAlignment="Center"></Entry>
 
-            <Label  Text="First name" FontSize="Medium"></Label>
-            <Entry  Text="{Binding FirstName}" ></Entry>
+            <Label  Text="Ime" FontSize="Medium"></Label>
+            <Entry  Text="{Binding FirstName}" HorizontalTextAlignment="Center"></Entry>
 
-            <Label  Text="Last name" FontSize="Medium"></Label>
-            <Entry  Text="{Binding LastName}"></Entry>
+            <Label  Text="Prezime" FontSize="Medium"></Label>
+            <Entry  Text="{Binding LastName}" HorizontalTextAlignment="Center"></Entry>
 
-            <Label  Text="Phone number" FontSize="Medium"></Label>
-            <Entry  Text="{Binding PhoneNumber}" ></Entry>
+            <Label  Text="Broj telefona" FontSize="Medium"></Label>
+            <Entry  Text="{Binding PhoneNumber}" HorizontalTextAlignment="Center"></Entry>
 
             <Button Command="{Binding SaveCommand}"  HorizontalOptions="FillAndExpand" Text="Sacuvaj" BackgroundColor="RoyalBlue" TextColor="White" FontSize="Medium"></Button>
             <Label IsVisible="{Binding IsBusy}" Text="..."></Label>

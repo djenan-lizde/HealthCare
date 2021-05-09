@@ -16,16 +16,16 @@
             </StackLayout>
             
             <Label  Text="Username" FontSize="Medium"></Label>
-            <Entry  Text="{Binding Username}"></Entry>
+            <Entry  Text="{Binding Username}" HorizontalTextAlignment="Center"></Entry>
 
             <Label  Text="Password" FontSize="Medium"></Label>
-            <Entry  Text="{Binding Password}" IsPassword="True"></Entry>
+            <Entry  Text="{Binding Password}" IsPassword="True" HorizontalTextAlignment="Center"></Entry>
 
             <Button Command="{Binding LoginCommand}"  HorizontalOptions="FillAndExpand" Text="Login" BackgroundColor="RoyalBlue" TextColor="White"></Button>
             <Label IsVisible="{Binding IsBusy}" Text="..."></Label>
 
-            <Label Text="If you dont't have an account click the button below." HorizontalOptions="CenterAndExpand"></Label>
-            <Button Command="{Binding RegisterCommand}" Text="Sign up!" BackgroundColor="RoyalBlue" TextColor="White"></Button>
+            <Label Text="Ako nemate korisnicki racun, kreirajte ga." HorizontalOptions="CenterAndExpand"></Label>
+            <Button Command="{Binding RegisterCommand}" Text="Registruj se!" BackgroundColor="RoyalBlue" TextColor="White"></Button>
         </StackLayout>
         
     </ContentPage.Content>
