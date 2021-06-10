@@ -17,7 +17,7 @@ namespace ePregledi.MobileApp.ViewModels
 
         public ReserveExaminationViewModel()
         {
-            SaveCommand = new Command(async () => await Init());
+            SaveCommand = new Command(async () => await Save());
         }
         public int UserId { get; set; }
 
@@ -38,10 +38,24 @@ namespace ePregledi.MobileApp.ViewModels
                 var doctor = await _apiServiceUsers.GetById<DoctorViewModel>(APIService.UserId, "doctor/recommend");
 
                 if (doctor == null)
+                {
                     await Application.Current.MainPage.DisplayAlert("Informacija", "Nema prijedloga za doktora", "OK");
+                    return;
+                }
 
                 RecommendedDoctor = doctor.FullName;
+            }
+            catch (Exception)
+            {
+                await Application.Current.MainPage.DisplayAlert("Informacija", "Doslo je do greske.", "OK");
+                return;
+            }
+        }
 
+        public async Task Save()
+        {
+            try
+            {
                 if (SelectedDoctor != null)
                 {
                     if (ExaminationDate > DateTime.Now.AddDays(2) && APIService.UserId != SelectedDoctor.DoctorId)
@@ -74,6 +88,11 @@ namespace ePregledi.MobileApp.ViewModels
                     }
                     await Application.Current.MainPage.DisplayAlert("Informacija", "Pregled treba biti zakazan najmanje 3 dana ranije " +
                         "ili se pokusali zakazati termin kod samih sebe", "OK");
+                    return;
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Informacija", "Molimo izaberite doktora", "OK");
                     return;
                 }
             }

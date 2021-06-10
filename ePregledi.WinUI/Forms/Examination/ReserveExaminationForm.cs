@@ -32,7 +32,10 @@ namespace ePregledi.WinUI.Forms.Examination
             var doctor = await _apiServiceUsers.GetById<DoctorViewModel>(APIService.UserId, "doctor/recommend");
 
             if (doctor == null)
+            {
                 txtRecomDoctor.Text = "No recommendation";
+                return;
+            }
 
             txtRecomDoctor.Text = doctor.FullName;
         }

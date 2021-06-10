@@ -33,7 +33,7 @@ namespace ePregledi.WinUI.Forms.User
             TxtEmail.Text = user.Email;
             TxtPhoneNumber.Text = user.PhoneNumber;
             TxtUserName.Text = user.Username;
-            if (user.Photo != null)
+            if (user.Photo.Length != 0)
             {
                 Image image = ImageResizer.ByteArrayToImage(user.Photo);
                 var newImage = ImageResizer.ResizeImage(image, 200, 200);

@@ -27,8 +27,18 @@ namespace ePregledi.WinUI
             CmbDoctors.Visible = false;
             LblDoctor.Visible = false;
 
+            var searchRequest = new SearchExamination
+            {
+                ExaminationDate = DateTime.Now.Date,
+                DeviceType = DeviceType
+            };
+
+            if (APIService.Role == "Doctor")
+                searchRequest.DoctorId = APIService.UserId;
+
             if (APIService.Role == "Patient")
             {
+                searchRequest.PatientId = APIService.UserId;
                 CmbDoctors.Visible = true;
                 LblDoctor.Visible = true;
                 ChBoxPatient.Visible = false;
@@ -39,13 +49,6 @@ namespace ePregledi.WinUI
                 CmbDoctors.ValueMember = "DoctorId";
                 CmbDoctors.DisplayMember = "FullName";
             }
-
-            var searchRequest = new SearchExamination
-            {
-                ExaminationDate = DateTime.Now.Date,
-                PatientId = APIService.UserId,
-                DeviceType = DeviceType
-            };
 
             var result = await _apiServiceExamination.Get<List<ExaminationViewModel>>(searchRequest, "filter");
 
@@ -63,13 +66,14 @@ namespace ePregledi.WinUI
             var searchRequest = new SearchExamination
             {
                 ExaminationDate = DateReservation.Value.Date,
-                PatientId = APIService.UserId,
-                DeviceType = DeviceType
+                DeviceType = DeviceType,
+                DoctorId = APIService.UserId
             };
 
             if (ChBoxPatient.Checked)
             {
                 searchRequest.DoctorId = int.Parse(CmbDoctors.SelectedValue.ToString());
+                searchRequest.PatientId = APIService.UserId;
             }
 
             var result = await _apiServiceExamination.Get<List<ExaminationViewModel>>(searchRequest, "filter");
@@ -93,8 +97,9 @@ namespace ePregledi.WinUI
         {
             var examinationId = DgvExamination.SelectedRows[0].Cells[0].Value;
             var doctorId = DgvExamination.SelectedRows[0].Cells[1].Value;
+            var patientId = DgvExamination.SelectedRows[0].Cells[2].Value;
 
-            ExaminationDetailsForm frm = new ExaminationDetailsForm((int)examinationId, (int)doctorId);
+            ExaminationDetailsForm frm = new ExaminationDetailsForm((int)examinationId, (int)doctorId, (int)patientId);
             frm.Show();
         }
 
@@ -107,11 +112,21 @@ namespace ePregledi.WinUI
         private async void BtnRefresh_Click(object sender, EventArgs e)
         {
             DgvExamination.DataSource = null;
-            var result = await _apiServiceExamination.Get<List<ExaminationViewModel>>(new SearchExamination
+
+            var searchRequest = new SearchExamination
             {
-                ExaminationDate = DateReservation.Value,
-                PatientId = APIService.UserId
-            }, "filter");
+                ExaminationDate = DateReservation.Value.Date,
+                DeviceType = DeviceType,
+                DoctorId = APIService.UserId
+            };
+
+            if (ChBoxPatient.Checked)
+            {
+                searchRequest.DoctorId = int.Parse(CmbDoctors.SelectedValue.ToString());
+                searchRequest.PatientId = APIService.UserId;
+            }
+
+            var result = await _apiServiceExamination.Get<List<ExaminationViewModel>>(searchRequest, "filter");
 
             if (result.Count == 0)
             {
@@ -135,12 +150,15 @@ namespace ePregledi.WinUI
                 CmbDoctors.ValueMember = "DoctorId";
                 CmbDoctors.DisplayMember = "FullName";
 
+                APIService.Role = "Patient";
+
                 MessageBox.Show("Sada ste u ulozi pacijenta.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             ChBoxPatient.Checked = false;
             CmbDoctors.Visible = false;
             LblDoctor.Visible = false;
+            APIService.Role = "Doctor";
             MessageBox.Show("Sada ste u ulozi doktora.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }

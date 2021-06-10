@@ -17,14 +17,16 @@ namespace ePregledi.WinUI.Forms.Examination
 
         private int ExaminationId { get; set; }
         private int DoctorId { get; set; }
+        private int PatientId { get; set; }
         byte[] pdfFile = null;
         ExaminationDetails ed = null;
 
-        public ExaminationDetailsForm(int examinationId, int doctorId)
+        public ExaminationDetailsForm(int examinationId, int doctorId, int patientId)
         {
             InitializeComponent();
             ExaminationId = examinationId;
             DoctorId = doctorId;
+            PatientId = patientId;
             AutoValidate = AutoValidate.Disable;
             linkLabel1.Visible = false;
         }
@@ -34,7 +36,7 @@ namespace ePregledi.WinUI.Forms.Examination
             {
                 BtnSave.Visible = false;
                 TxtPdfUploadbox.ReadOnly = true;
-                var user = await _apiServiceUser.GetById<PatientViewModel>(APIService.UserId, "patient");
+                var user = await _apiServiceUser.GetById<PatientViewModel>(PatientId, "patient");
 
                 if (user == null)
                     return;

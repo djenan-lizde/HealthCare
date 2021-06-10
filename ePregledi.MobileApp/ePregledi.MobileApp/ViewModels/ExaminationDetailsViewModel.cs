@@ -15,7 +15,6 @@ namespace ePregledi.MobileApp.ViewModels
         public ExaminationDetailsViewModel()
         {
             InitCommand = new Command(async () => await Init());
-            DownloadCommand = new Command(async () => await Download());
             RateDoctor = new Command(async () => await Rate());
         }
 
@@ -29,7 +28,10 @@ namespace ePregledi.MobileApp.ViewModels
                 var eD = await _apiServiceExamination.GetById<ExaminationDetails>(Examination.Id, "details");
 
                 if (eD == null)
-                    return; 
+                {
+                    await Application.Current.MainPage.DisplayAlert("Informacija", "Nema detalja za pregled", "OK");
+                    return;
+                }
 
                 ExaminationDetails = eD;
                 ExaminationDate = eD.ReservationDate;
@@ -46,25 +48,7 @@ namespace ePregledi.MobileApp.ViewModels
                 return;
             }
         }
-        public async Task Download()
-        {
-            try
-            {
-                if (ExaminationDetails.Recipe.PdfDocument != null)
-                {
-                    string filename = $"{ExaminationDetails.Diagnosis.DiagnosisName}_{Guid.NewGuid()}.pdf";
-                    var tempFolder = Path.GetTempPath();
-                    filename = Path.Combine(tempFolder, filename);
-                    File.WriteAllBytes(filename, ExaminationDetails.Recipe.PdfDocument);
-                    //Process.Start(filename);
-                }
-            }
-            catch (Exception)
-            {
-                await Application.Current.MainPage.DisplayAlert("Informacija", "Nema instrukcija u pdf formatu.", "OK");
-                return;
-            }
-        }
+        
         public async Task Rate()
         {
             try
@@ -167,7 +151,6 @@ namespace ePregledi.MobileApp.ViewModels
         }
 
         public ICommand InitCommand { get; set; }
-        public ICommand DownloadCommand { get; set; }
         public ICommand RateDoctor { get; set; }
     }
 }

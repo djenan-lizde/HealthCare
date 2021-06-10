@@ -29,9 +29,13 @@ namespace ePregledi.API.Services
         {
             var query = _context.Examinations.AsQueryable();
 
-            if (request.DeviceType == DeviceType.Desktop && request.DoctorId != 0)
+            if (request.DeviceType == DeviceType.Desktop)
             {
-                query = query.Where(x => x.DoctorId == request.DoctorId);
+                if (request.DoctorId != 0)
+                    query = query.Where(x => x.DoctorId == request.DoctorId);
+
+                if (request.PatientId != 0)
+                    query = query.Where(x => x.PatientId == request.PatientId);
             }
             else if (request.DeviceType == DeviceType.Mobile)
             {
