@@ -45,7 +45,7 @@ namespace ePregledi.API.Controllers
         }
 
         [HttpPost("insert")]
-        [Authorize(Roles = "Patient")]
+        //[Authorize(Roles = "Patient")]
         public Examination InsertExamination(Examination examination)
         {
             return _examinationService.Insert(examination);

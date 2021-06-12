@@ -54,7 +54,7 @@ namespace ePregledi.WinUI
 
             if (result.Count == 0)
             {
-                MessageBox.Show("Nemate zakazanih pregleda za danas.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Nema zakazanih pregleda za odabrani datum.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -80,7 +80,7 @@ namespace ePregledi.WinUI
 
             if (result.Count == 0)
             {
-                MessageBox.Show("Nemate zakazanih pregleda za danas.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Nema zakazanih pregleda za odabrani datum.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -130,7 +130,7 @@ namespace ePregledi.WinUI
 
             if (result.Count == 0)
             {
-                MessageBox.Show("Nemate zakazanih pregleda za danas.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Nema zakazanih pregleda za odabrani datum.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 

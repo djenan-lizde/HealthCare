@@ -17,7 +17,7 @@ namespace ePregledi.MobileApp.ViewModels
 
         public SearchExaminationViewModel()
         {
-            SearchCommand = new Command(async () => await Init());
+            SearchCommand = new Command(async () => await Save());
         }
 
         public async Task Init()
@@ -34,6 +34,22 @@ namespace ePregledi.MobileApp.ViewModels
                         await Application.Current.MainPage.DisplayAlert("Informacija", "Trenutno nemamo doktora", "OK");
                 }
 
+                if (APIService.Role == "Doctor")
+                {
+                    IsDoctor = true;
+                }
+            }
+            catch (Exception)
+            {
+                await Application.Current.MainPage.DisplayAlert("Informacija", "Greska", "OK");
+                return;
+            }
+        }
+
+        public async Task Save()
+        {
+            try
+            {
                 if (SelectedDoctor != null && SelectedDoctor.DoctorId != APIService.UserId)
                 {
                     Examinations.Clear();
@@ -72,7 +88,7 @@ namespace ePregledi.MobileApp.ViewModels
             }
             catch (Exception)
             {
-                await Application.Current.MainPage.DisplayAlert("Informacija", "Greska", "OK");
+                await Application.Current.MainPage.DisplayAlert("Informacija", "Doslo je do greske!", "OK");
                 return;
             }
         }
@@ -96,6 +112,13 @@ namespace ePregledi.MobileApp.ViewModels
         {
             get { return _fullName; }
             set { SetProperty(ref _fullName, value); }
+        }
+
+        bool _isDoctor = false;
+        public bool IsDoctor
+        {
+            get { return _isDoctor; }
+            set { SetProperty(ref _isDoctor, value); }
         }
 
         public ICommand SearchCommand { get; set; }

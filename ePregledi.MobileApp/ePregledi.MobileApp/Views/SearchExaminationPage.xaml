@@ -8,8 +8,8 @@
             <StackLayout HorizontalOptions="CenterAndExpand">
                 <Label Text="Pretraga pregleda" HorizontalOptions="Center" FontSize="Header"/>
 
-                <Label HorizontalOptions="Center" Text="Ime i prezime pacijenta" FontSize="Medium"></Label>
-                <Entry Text="{Binding FullName}"></Entry>
+                <Label HorizontalOptions="Center" Text="Ime i prezime pacijenta" FontSize="Medium" IsVisible="{Binding IsDoctor}"></Label>
+                <Entry IsVisible="{Binding IsDoctor}" Text="{Binding FullName}"></Entry>
 
                 <Label HorizontalOptions="CenterAndExpand" Text="Datum pregleda" FontSize="Medium"></Label>
                 <DatePicker Date="{Binding ExaminationDate}"></DatePicker>

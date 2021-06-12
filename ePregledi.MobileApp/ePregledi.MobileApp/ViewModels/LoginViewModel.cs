@@ -49,6 +49,7 @@ namespace ePregledi.MobileApp.ViewModels
 
                 APIService.Token = data.Token;
                 APIService.UserId = data.Id;
+                APIService.Role = data.Role;
                 Application.Current.MainPage = new MainPage();
             }
             catch (Exception ex)
