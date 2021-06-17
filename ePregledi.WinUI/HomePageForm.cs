@@ -4,6 +4,7 @@ using ePregledi.WinUI.Forms.Examination;
 using ePregledi.WinUI.Forms.User;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using static ePregledi.Models.Enums.Enums;
 
@@ -33,10 +34,10 @@ namespace ePregledi.WinUI
                 DeviceType = DeviceType
             };
 
-            if (APIService.Role == "Doctor")
+            if (APIService.Role == Role.Doctor.ToString())
                 searchRequest.DoctorId = APIService.UserId;
 
-            if (APIService.Role == "Patient")
+            if (APIService.Role == Role.Patient.ToString())
             {
                 searchRequest.PatientId = APIService.UserId;
                 CmbDoctors.Visible = true;
@@ -63,28 +64,7 @@ namespace ePregledi.WinUI
 
         private async void BtnSearch_Click(object sender, EventArgs e)
         {
-            var searchRequest = new SearchExamination
-            {
-                ExaminationDate = DateReservation.Value.Date,
-                DeviceType = DeviceType,
-                DoctorId = APIService.UserId
-            };
-
-            if (ChBoxPatient.Checked)
-            {
-                searchRequest.DoctorId = int.Parse(CmbDoctors.SelectedValue.ToString());
-                searchRequest.PatientId = APIService.UserId;
-            }
-
-            var result = await _apiServiceExamination.Get<List<ExaminationViewModel>>(searchRequest, "filter");
-
-            if (result.Count == 0)
-            {
-                MessageBox.Show("Nema zakazanih pregleda za odabrani datum.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            DgvExamination.DataSource = result;
+            Search();
         }
 
         private void LblReserve_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -111,14 +91,27 @@ namespace ePregledi.WinUI
 
         private async void BtnRefresh_Click(object sender, EventArgs e)
         {
+            Search();
+        }
+
+        private async void Search()
+        {
             DgvExamination.DataSource = null;
 
             var searchRequest = new SearchExamination
             {
                 ExaminationDate = DateReservation.Value.Date,
-                DeviceType = DeviceType,
-                DoctorId = APIService.UserId
+                DeviceType = DeviceType
             };
+
+            if (APIService.Role == Role.Doctor.ToString())
+                searchRequest.DoctorId = APIService.UserId;
+
+            if (APIService.Role == Role.Patient.ToString())
+            {
+                searchRequest.DoctorId = int.Parse(CmbDoctors.SelectedValue.ToString());
+                searchRequest.PatientId = APIService.UserId;
+            }
 
             if (ChBoxPatient.Checked)
             {
@@ -139,6 +132,7 @@ namespace ePregledi.WinUI
 
         private async void ChBoxPatient_CheckedChanged(object sender, EventArgs e)
         {
+            DgvExamination.DataSource = null;
             if (ChBoxPatient.Checked)
             {
                 CmbDoctors.Visible = true;
@@ -150,7 +144,7 @@ namespace ePregledi.WinUI
                 CmbDoctors.ValueMember = "DoctorId";
                 CmbDoctors.DisplayMember = "FullName";
 
-                APIService.Role = "Patient";
+                APIService.Role = Role.Patient.ToString();
 
                 MessageBox.Show("Sada ste u ulozi pacijenta.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -158,7 +152,7 @@ namespace ePregledi.WinUI
             ChBoxPatient.Checked = false;
             CmbDoctors.Visible = false;
             LblDoctor.Visible = false;
-            APIService.Role = "Doctor";
+            APIService.Role = Role.Doctor.ToString();
             MessageBox.Show("Sada ste u ulozi doktora.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }

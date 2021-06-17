@@ -56,7 +56,7 @@ namespace ePregledi.WinUI.Forms.Examination
 
                 var ex = await _apiServiceExamination.GetById<Models.Models.Examination>(ExaminationId);
 
-                TxtDateReservation.Text = $"{ex.ExaminationDate:MM/dd/yyyy} {ex.ExaminationTime.Hours}:{ex.ExaminationTime.Minutes}";
+                TxtDateReservation.Text = $"{ex.ExaminationDate:MM/dd/yyyy} {ex.ExaminationTime:hh\\:mm}";
 
                 ed = await _apiServiceExamination.GetById<ExaminationDetails>(ExaminationId, "details");
 
