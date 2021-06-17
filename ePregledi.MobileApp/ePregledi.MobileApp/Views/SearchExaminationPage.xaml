@@ -16,7 +16,7 @@
 
                 <Picker HorizontalOptions="CenterAndExpand" Title="Izaberite doktora" FontSize="Medium"
                     ItemsSource="{Binding Doctors}" SelectedItem="{Binding SelectedDoctor}" 
-                    ItemDisplayBinding="{Binding FullName}"></Picker>
+                    ItemDisplayBinding="{Binding FullName}" IsVisible="{Binding IsPatient}"></Picker>
 
                 <Button Command="{Binding SearchCommand}" HorizontalOptions="CenterAndExpand"
                         Text="Pretrazi" BackgroundColor="RoyalBlue" TextColor="White"></Button>

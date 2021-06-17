@@ -34,10 +34,12 @@ namespace ePregledi.MobileApp.ViewModels
                         await Application.Current.MainPage.DisplayAlert("Informacija", "Trenutno nemamo doktora", "OK");
                 }
 
-                if (APIService.Role == "Doctor")
-                {
+                if (APIService.Role == Role.Doctor.ToString())
                     IsDoctor = true;
-                }
+
+                if (APIService.Role == Role.Patient.ToString())
+                    IsPatient = true;
+
             }
             catch (Exception)
             {
@@ -50,46 +52,68 @@ namespace ePregledi.MobileApp.ViewModels
         {
             try
             {
-                if (SelectedDoctor != null && SelectedDoctor.DoctorId != APIService.UserId)
+                if (APIService.Role == Role.Patient.ToString())
+                {
+                    if (SelectedDoctor != null && SelectedDoctor.DoctorId != APIService.UserId)
+                    {
+                        Examinations.Clear();
+                        var searchRequest = new SearchExamination
+                        {
+                            DoctorId = SelectedDoctor.DoctorId,
+                            ExaminationDate = ExaminationDate,
+                            DeviceType = DeviceType.Mobile,
+                            PatientId = APIService.UserId
+                        };
+
+                        Search(searchRequest);
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Informacija", "Molimo izaberite doktora ili ste pokusali da izaberete sami sebe za pretragu.", "OK");
+                        return;
+                    }
+                }
+
+                if (APIService.Role == Role.Doctor.ToString())
                 {
                     Examinations.Clear();
                     var searchRequest = new SearchExamination
                     {
-                        DoctorId = SelectedDoctor.DoctorId,
+                        DoctorId = APIService.UserId,
                         ExaminationDate = ExaminationDate,
                         PatientFullName = FullName,
                         DeviceType = DeviceType.Mobile
                     };
 
-                    var examinations = await _apiServiceExamination.Get<List<ExaminationViewModel>>(searchRequest, "filter");
-
-                    if (examinations.Count == 0)
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Informacija", "Nema trazenih pregleda", "OK");
-                        return;
-                    }
-
-                    foreach (var item in examinations)
-                    {
-                        Examinations.Add(new ExaminationViewModel
-                        {
-                            Id = item.Id,
-                            DoctorName = item.DoctorName,
-                            ExaminationDate = item.ExaminationDate,
-                            PatientName = item.PatientName
-                        });
-                    }
-                }
-                else
-                {
-                    await Application.Current.MainPage.DisplayAlert("Informacija", "Molimo izaberite doktora.", "OK");
-                    return;
+                    Search(searchRequest);
                 }
             }
             catch (Exception)
             {
                 await Application.Current.MainPage.DisplayAlert("Informacija", "Doslo je do greske!", "OK");
                 return;
+            }
+        }
+
+        private async void Search(SearchExamination searchRequest)
+        {
+            var examinations = await _apiServiceExamination.Get<List<ExaminationViewModel>>(searchRequest, "filter");
+
+            if (examinations.Count == 0)
+            {
+                await Application.Current.MainPage.DisplayAlert("Informacija", "Nema trazenih pregleda", "OK");
+                return;
+            }
+
+            foreach (var item in examinations)
+            {
+                Examinations.Add(new ExaminationViewModel
+                {
+                    Id = item.Id,
+                    DoctorName = item.DoctorName,
+                    ExaminationDate = item.ExaminationDate,
+                    PatientName = item.PatientName
+                });
             }
         }
 
@@ -119,6 +143,13 @@ namespace ePregledi.MobileApp.ViewModels
         {
             get { return _isDoctor; }
             set { SetProperty(ref _isDoctor, value); }
+        }
+
+        bool _isPatient = false;
+        public bool IsPatient
+        {
+            get { return _isPatient; }
+            set { SetProperty(ref _isPatient, value); }
         }
 
         public ICommand SearchCommand { get; set; }
