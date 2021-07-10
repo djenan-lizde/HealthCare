@@ -126,9 +126,9 @@ namespace ePregledi.WinUI.Forms.Examination
                     MessageBox.Show("Uspjesno sacuvano.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Close();
                 }
-                catch (Exception)
+                catch (Exception exception)
                 {
-                    MessageBox.Show("Doslo je do greske", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Doslo je do greske.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }

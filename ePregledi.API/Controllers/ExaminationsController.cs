@@ -51,9 +51,9 @@ namespace ePregledi.API.Controllers
         }
 
         [HttpGet("ambulance")]
-        public IEnumerable<Ambulance> GetAmbulances()
+        public List<Ambulance> GetAmbulances()
         {
-            return _ambulanceService.Get();
+            return _ambulanceService.Get().ToList();
         }
 
         [HttpGet("department")]

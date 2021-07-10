@@ -46,6 +46,8 @@ namespace ePregledi.WinUI.Forms.Examination
             }
 
             txtRecomDoctor.Text = doctor.FullName;
+            CmbDepartment.Enabled = false;
+            CmbRooms.Enabled = false;
         }
 
         private async void BtnReserve_Click(object sender, EventArgs e)
@@ -117,7 +119,7 @@ namespace ePregledi.WinUI.Forms.Examination
         private async void CmbAmbulance_SelectedIndexChanged(object sender, EventArgs e)
         {
             var departments = await _apiServiceExamination.Get<List<Department>>(null, "department");
-
+            CmbDepartment.Enabled = true;
             departments.Insert(0, new Department());
             CmbDepartment.DataSource = departments;
             CmbDepartment.ValueMember = "Id";
@@ -127,7 +129,7 @@ namespace ePregledi.WinUI.Forms.Examination
         private async void CmbDepartment_SelectedIndexChanged(object sender, EventArgs e)
         {
             var rooms = await _apiServiceExamination.Get<List<Room>>(null, "rooms");
-
+            CmbRooms.Enabled = true;
             rooms.Insert(0, new Room());
             CmbRooms.DataSource = rooms;
             CmbRooms.ValueMember = "Id";

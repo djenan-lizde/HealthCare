@@ -16,6 +16,11 @@ namespace ePregledi.API.Database
         public DbSet<Diagnosis> Diagnoses { get; set; }
         public DbSet<Referral> Referrals { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<Ambulance> Ambulance { get; set; }
+        public DbSet<Department> Department { get; set; }
+        public DbSet<Room> Room { get; set; }
+        public DbSet<Medicine> Medicine { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder builder)
