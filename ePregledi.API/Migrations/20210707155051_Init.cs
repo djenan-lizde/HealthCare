@@ -8,6 +8,19 @@ namespace ePregledi.API.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Medicine",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Medicine", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -23,8 +36,7 @@ namespace ePregledi.API.Migrations
                     LastName = table.Column<string>(nullable: false),
                     JoinDate = table.Column<DateTime>(nullable: false),
                     DateOfBirth = table.Column<DateTime>(nullable: false),
-                    Gender = table.Column<int>(nullable: false),
-                    Role = table.Column<string>(nullable: false)
+                    Gender = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -38,8 +50,7 @@ namespace ePregledi.API.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ExaminationDate = table.Column<DateTime>(nullable: false),
-                    ExaminationTime = table.Column<DateTime>(nullable: false),
-                    Conclusion = table.Column<string>(nullable: false),
+                    ExaminationTime = table.Column<TimeSpan>(nullable: false),
                     IsFinished = table.Column<bool>(nullable: false),
                     Rating = table.Column<int>(nullable: false),
                     Comment = table.Column<string>(nullable: false),
@@ -64,6 +75,26 @@ namespace ePregledi.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserRoles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(nullable: false),
+                    Role = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserRoles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserRoles_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Diagnoses",
                 columns: table => new
                 {
@@ -71,7 +102,6 @@ namespace ePregledi.API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DiagnosisName = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: false),
-                    PdfDocument = table.Column<byte[]>(nullable: false),
                     ExaminationId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -112,8 +142,9 @@ namespace ePregledi.API.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Medicine = table.Column<string>(nullable: false),
+                    MedicineId = table.Column<int>(nullable: false),
                     Instruction = table.Column<string>(nullable: false),
+                    PdfDocument = table.Column<byte[]>(nullable: false),
                     DiagnosisId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -123,6 +154,12 @@ namespace ePregledi.API.Migrations
                         name: "FK_Recipes_Diagnoses_DiagnosisId",
                         column: x => x.DiagnosisId,
                         principalTable: "Diagnoses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_Recipes_Medicine_MedicineId",
+                        column: x => x.MedicineId,
+                        principalTable: "Medicine",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
@@ -148,9 +185,19 @@ namespace ePregledi.API.Migrations
                 column: "DiagnosisId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Recipes_MedicineId",
+                table: "Recipes",
+                column: "MedicineId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Referrals_ExaminationId",
                 table: "Referrals",
                 column: "ExaminationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRoles_UserId",
+                table: "UserRoles",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -162,7 +209,13 @@ namespace ePregledi.API.Migrations
                 name: "Referrals");
 
             migrationBuilder.DropTable(
+                name: "UserRoles");
+
+            migrationBuilder.DropTable(
                 name: "Diagnoses");
+
+            migrationBuilder.DropTable(
+                name: "Medicine");
 
             migrationBuilder.DropTable(
                 name: "Examinations");

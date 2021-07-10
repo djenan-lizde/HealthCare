@@ -19,6 +19,42 @@ namespace ePregledi.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("ePregledi.Models.Models.Ambulance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ambulance");
+                });
+
+            modelBuilder.Entity("ePregledi.Models.Models.Department", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Abbreviation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Department");
+                });
+
             modelBuilder.Entity("ePregledi.Models.Models.Diagnosis", b =>
                 {
                     b.Property<int>("Id")
@@ -51,9 +87,15 @@ namespace ePregledi.API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AmbulanceId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Comment")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
 
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
@@ -73,13 +115,38 @@ namespace ePregledi.API.Migrations
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("AmbulanceId");
+
+                    b.HasIndex("DepartmentId");
 
                     b.HasIndex("DoctorId");
 
                     b.HasIndex("PatientId");
 
+                    b.HasIndex("RoomId");
+
                     b.ToTable("Examinations");
+                });
+
+            modelBuilder.Entity("ePregledi.Models.Models.Medicine", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Medicine");
                 });
 
             modelBuilder.Entity("ePregledi.Models.Models.Recipe", b =>
@@ -96,9 +163,8 @@ namespace ePregledi.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Medicine")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("MedicineId")
+                        .HasColumnType("int");
 
                     b.Property<byte[]>("PdfDocument")
                         .IsRequired()
@@ -107,6 +173,8 @@ namespace ePregledi.API.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DiagnosisId");
+
+                    b.HasIndex("MedicineId");
 
                     b.ToTable("Recipes");
                 });
@@ -133,6 +201,25 @@ namespace ePregledi.API.Migrations
                     b.HasIndex("ExaminationId");
 
                     b.ToTable("Referrals");
+                });
+
+            modelBuilder.Entity("ePregledi.Models.Models.Room", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Room");
                 });
 
             modelBuilder.Entity("ePregledi.Models.Models.User", b =>
@@ -217,6 +304,18 @@ namespace ePregledi.API.Migrations
 
             modelBuilder.Entity("ePregledi.Models.Models.Examination", b =>
                 {
+                    b.HasOne("ePregledi.Models.Models.Ambulance", "Ambulance")
+                        .WithMany()
+                        .HasForeignKey("AmbulanceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ePregledi.Models.Models.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ePregledi.Models.Models.User", "Doctor")
                         .WithMany()
                         .HasForeignKey("DoctorId")
@@ -228,6 +327,12 @@ namespace ePregledi.API.Migrations
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("ePregledi.Models.Models.Room", "Room")
+                        .WithMany()
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ePregledi.Models.Models.Recipe", b =>
@@ -235,6 +340,12 @@ namespace ePregledi.API.Migrations
                     b.HasOne("ePregledi.Models.Models.Diagnosis", "Diagnosis")
                         .WithMany()
                         .HasForeignKey("DiagnosisId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ePregledi.Models.Models.Medicine", "Medicine")
+                        .WithMany()
+                        .HasForeignKey("MedicineId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

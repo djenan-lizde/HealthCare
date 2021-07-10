@@ -52,7 +52,6 @@ namespace ePregledi.WinUI.Forms.Examination
             this.BtnUpload = new System.Windows.Forms.Button();
             this.TxtInstructions = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.TxtMedicine = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.Referral = new System.Windows.Forms.TabPage();
             this.PriorityNumberPicker = new System.Windows.Forms.NumericUpDown();
@@ -63,6 +62,7 @@ namespace ePregledi.WinUI.Forms.Examination
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.CmbMedicine = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicProfileBox)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -244,12 +244,12 @@ namespace ePregledi.WinUI.Forms.Examination
             // 
             // Recipe
             // 
+            this.Recipe.Controls.Add(this.CmbMedicine);
             this.Recipe.Controls.Add(this.BtnOpenPdf);
             this.Recipe.Controls.Add(this.TxtPdfUploadbox);
             this.Recipe.Controls.Add(this.BtnUpload);
             this.Recipe.Controls.Add(this.TxtInstructions);
             this.Recipe.Controls.Add(this.label8);
-            this.Recipe.Controls.Add(this.TxtMedicine);
             this.Recipe.Controls.Add(this.label9);
             this.Recipe.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Recipe.Location = new System.Drawing.Point(4, 22);
@@ -313,15 +313,6 @@ namespace ePregledi.WinUI.Forms.Examination
             this.label8.Size = new System.Drawing.Size(81, 20);
             this.label8.TabIndex = 8;
             this.label8.Text = "Instrukcije";
-            // 
-            // TxtMedicine
-            // 
-            this.TxtMedicine.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtMedicine.Location = new System.Drawing.Point(21, 36);
-            this.TxtMedicine.Name = "TxtMedicine";
-            this.TxtMedicine.Size = new System.Drawing.Size(750, 26);
-            this.TxtMedicine.TabIndex = 7;
-            this.TxtMedicine.Validating += new System.ComponentModel.CancelEventHandler(this.TxtMedicine_Validating);
             // 
             // label9
             // 
@@ -418,6 +409,14 @@ namespace ePregledi.WinUI.Forms.Examination
             this.linkLabel1.Text = "Ocijeni doktora";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
+            // CmbMedicine
+            // 
+            this.CmbMedicine.FormattingEnabled = true;
+            this.CmbMedicine.Location = new System.Drawing.Point(21, 45);
+            this.CmbMedicine.Name = "CmbMedicine";
+            this.CmbMedicine.Size = new System.Drawing.Size(750, 28);
+            this.CmbMedicine.TabIndex = 13;
+            // 
             // ExaminationDetailsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -471,7 +470,6 @@ namespace ePregledi.WinUI.Forms.Examination
         private System.Windows.Forms.PictureBox PicProfileBox;
         private System.Windows.Forms.TextBox TxtInstructions;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox TxtMedicine;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox TxtInformation;
         private System.Windows.Forms.Label label10;
@@ -483,5 +481,6 @@ namespace ePregledi.WinUI.Forms.Examination
         private System.Windows.Forms.Button BtnUpload;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Button BtnOpenPdf;
+        private System.Windows.Forms.ComboBox CmbMedicine;
     }
 }

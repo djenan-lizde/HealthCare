@@ -10,8 +10,8 @@ using ePregledi.API.Database;
 namespace ePregledi.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210222160938_Opet")]
-    partial class Opet
+    [Migration("20210707155051_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -84,6 +84,22 @@ namespace ePregledi.API.Migrations
                     b.ToTable("Examinations");
                 });
 
+            modelBuilder.Entity("ePregledi.Models.Models.Medicine", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Medicine");
+                });
+
             modelBuilder.Entity("ePregledi.Models.Models.Recipe", b =>
                 {
                     b.Property<int>("Id")
@@ -98,9 +114,8 @@ namespace ePregledi.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Medicine")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("MedicineId")
+                        .HasColumnType("int");
 
                     b.Property<byte[]>("PdfDocument")
                         .IsRequired()
@@ -109,6 +124,8 @@ namespace ePregledi.API.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DiagnosisId");
+
+                    b.HasIndex("MedicineId");
 
                     b.ToTable("Recipes");
                 });
@@ -237,6 +254,12 @@ namespace ePregledi.API.Migrations
                     b.HasOne("ePregledi.Models.Models.Diagnosis", "Diagnosis")
                         .WithMany()
                         .HasForeignKey("DiagnosisId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ePregledi.Models.Models.Medicine", "Medicine")
+                        .WithMany()
+                        .HasForeignKey("MedicineId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

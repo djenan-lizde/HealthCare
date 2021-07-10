@@ -35,6 +35,36 @@ namespace ePregledi.MobileApp.ViewModels
                         await Application.Current.MainPage.DisplayAlert("Informacija", "Trenutno nemamo doktora", "OK");
                 }
 
+                if (Ambulances.Count == 0)
+                {
+                    var ambulances = await _apiServiceExamination.Get<List<Ambulance>>(null, "ambulance");
+                    if (ambulances.Count > 0)
+                        foreach (var item in ambulances)
+                            ambulances.Add(item);
+                    else
+                        await Application.Current.MainPage.DisplayAlert("Informacija", "Trenutno nemamo ambulanti", "OK");
+                }
+
+                if (Departments.Count == 0)
+                {
+                    var departments = await _apiServiceExamination.Get<List<Department>>(null, "department");
+                    if (departments.Count > 0)
+                        foreach (var item in departments)
+                            Departments.Add(item);
+                    else
+                        await Application.Current.MainPage.DisplayAlert("Informacija", "Trenutno nemamo odjela", "OK");
+                }
+
+                if (Rooms.Count == 0)
+                {
+                    var rooms = await _apiServiceExamination.Get<List<Room>>(null, "rooms");
+                    if (rooms.Count > 0)
+                        foreach (var item in rooms)
+                            Rooms.Add(item);
+                    else
+                        await Application.Current.MainPage.DisplayAlert("Informacija", "Trenutno nemamo soba", "OK");
+                }
+
                 var doctor = await _apiServiceUsers.GetById<DoctorViewModel>(APIService.UserId, "doctor/recommend");
 
                 if (doctor == null)
@@ -56,7 +86,7 @@ namespace ePregledi.MobileApp.ViewModels
         {
             try
             {
-                if (SelectedDoctor != null)
+                if (SelectedDoctor != null && SelectedAmbulance != null && SelectedDepartment != null && SelectedRoom != null)
                 {
                     if (ExaminationDate > DateTime.Now.AddDays(2) && APIService.UserId != SelectedDoctor.DoctorId)
                     {
@@ -76,7 +106,10 @@ namespace ePregledi.MobileApp.ViewModels
                                 ExaminationTime = SelectedTime,
                                 IsFinished = false,
                                 PatientId = APIService.UserId,
-                                Rating = 0
+                                Rating = 0,
+                                AmbulanceId = SelectedAmbulance.Id,
+                                DepartmentId = SelectedDepartment.Id,
+                                RoomId = SelectedRoom.Id
                             };
 
                             await _apiServiceExamination.Insert<Examination>(examination, "insert");
@@ -92,7 +125,7 @@ namespace ePregledi.MobileApp.ViewModels
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("Informacija", "Molimo izaberite doktora", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Informacija", "Odaberite vrijednosti u padajucoj listi", "OK");
                     return;
                 }
             }
@@ -108,6 +141,27 @@ namespace ePregledi.MobileApp.ViewModels
         {
             get { return _selectedDoctor; }
             set { SetProperty(ref _selectedDoctor, value); }
+        }
+
+        Ambulance _selectedAmbulance = null;
+        public Ambulance SelectedAmbulance
+        {
+            get { return _selectedAmbulance; }
+            set { SetProperty(ref _selectedAmbulance, value); }
+        }
+
+        Department _selectedDepartment = null;
+        public Department SelectedDepartment
+        {
+            get { return _selectedDepartment; }
+            set { SetProperty(ref _selectedDepartment, value); }
+        }
+
+        Room _selectedRoom = null;
+        public Room SelectedRoom
+        {
+            get { return _selectedRoom; }
+            set { SetProperty(ref _selectedRoom, value); }
         }
 
         string _recommendedDoctor = null;
@@ -134,5 +188,8 @@ namespace ePregledi.MobileApp.ViewModels
 
         public ICommand SaveCommand { get; set; }
         public ObservableCollection<DoctorViewModel> Doctors { get; set; } = new ObservableCollection<DoctorViewModel>();
+        public ObservableCollection<Ambulance> Ambulances { get; set; } = new ObservableCollection<Ambulance>();
+        public ObservableCollection<Department> Departments { get; set; } = new ObservableCollection<Department>();
+        public ObservableCollection<Room> Rooms { get; set; } = new ObservableCollection<Room>();
     }
 }

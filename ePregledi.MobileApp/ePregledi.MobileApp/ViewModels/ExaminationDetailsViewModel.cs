@@ -1,7 +1,6 @@
 ﻿using ePregledi.Models.Models;
 using ePregledi.Models.Responses;
 using System;
-using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -37,7 +36,16 @@ namespace ePregledi.MobileApp.ViewModels
                 ExaminationDate = eD.ReservationDate;
                 DiagnosisName = eD.Diagnosis.DiagnosisName;
                 Description = eD.Diagnosis.Description;
-                Medicine = eD.Recipe.Medicine;
+
+                var medicine = await _apiServiceExamination.GetById<Medicine>(eD.Recipe.MedicineId, "medicine");
+                if (medicine == null)
+                {
+                    Medicine = "N/A";
+                }
+                else
+                {
+                    Medicine = medicine.Name;
+                }
                 Instruction = eD.Recipe.Instruction;
                 Info = eD.Referral.Info;
                 IsFinished = eD.Diagnosis.Examination.IsFinished;
@@ -48,7 +56,7 @@ namespace ePregledi.MobileApp.ViewModels
                 return;
             }
         }
-        
+
         public async Task Rate()
         {
             try

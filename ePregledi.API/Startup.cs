@@ -94,6 +94,10 @@ namespace ePregledi.API
             services.AddScoped<IRecipeService, RecipeService>();
             services.AddScoped<IReferralService, ReferralService>();
             services.AddScoped<IUserRoleService, UserRoleService>();
+            services.AddScoped<IMedicineService, MedicineService>();
+            services.AddScoped<IRoomService, RoomService>();
+            services.AddScoped<IAmbulanceService, AmbulanceService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

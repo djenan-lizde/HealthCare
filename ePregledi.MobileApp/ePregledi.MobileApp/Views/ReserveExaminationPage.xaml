@@ -20,6 +20,18 @@
                     ItemsSource="{Binding Doctors}" SelectedItem="{Binding SelectedDoctor}" 
                     ItemDisplayBinding="{Binding FullName}"></Picker>
 
+            <Picker HorizontalOptions="CenterAndExpand" Title="Izaberite ambulantu" FontSize="Medium"
+                    ItemsSource="{Binding Ambulances}" SelectedItem="{Binding SelectedAmbulance}" 
+                    ItemDisplayBinding="{Binding Name}"></Picker>
+
+            <Picker HorizontalOptions="CenterAndExpand" Title="Izaberite odjel" FontSize="Medium"
+                    ItemsSource="{Binding Departments}" SelectedItem="{Binding SelectedDepartment}" 
+                    ItemDisplayBinding="{Binding Name}"></Picker>
+
+            <Picker HorizontalOptions="CenterAndExpand" Title="Izaberite sobu" FontSize="Medium"
+                    ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom}" 
+                    ItemDisplayBinding="{Binding Name}"></Picker>
+
             <Button Command="{Binding SaveCommand}" Text="Rezerviraj" BackgroundColor="RoyalBlue" TextColor="White"></Button>
             
         </StackLayout>

@@ -2,6 +2,7 @@
 using ePregledi.Models.Responses;
 using ePregledi.WinUI.Helper;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -36,6 +37,14 @@ namespace ePregledi.WinUI.Forms.Examination
             {
                 BtnSave.Visible = false;
                 TxtPdfUploadbox.ReadOnly = true;
+
+                var medicine = await _apiServiceExamination.Get<List<Medicine>>(null, "medicines");
+
+                medicine.Insert(0, new Medicine());
+                CmbMedicine.DataSource = medicine;
+                CmbMedicine.ValueMember = "Id";
+                CmbMedicine.DisplayMember = "Name";
+
                 var user = await _apiServiceUser.GetById<PatientViewModel>(PatientId, "patient");
 
                 if (user == null)
@@ -69,7 +78,7 @@ namespace ePregledi.WinUI.Forms.Examination
                 linkLabel1.Visible = true;
                 TxtDiagnoseName.Text = ed.Diagnosis.DiagnosisName;
                 TxtDescription.Text = ed.Diagnosis.Description;
-                TxtMedicine.Text = ed.Recipe.Medicine;
+                CmbMedicine.SelectedItem = ed.Recipe.MedicineId;
                 TxtInstructions.Text = ed.Recipe.Instruction;
                 PriorityNumberPicker.Value = ed.Referral.Priority;
                 TxtInformation.Text = ed.Referral.Info.ToString();
@@ -99,7 +108,7 @@ namespace ePregledi.WinUI.Forms.Examination
                         },
                         Recipe = new Recipe
                         {
-                            Medicine = TxtMedicine.Text,
+                            MedicineId = int.Parse(CmbMedicine.SelectedValue.ToString()),
                             Instruction = TxtInstructions.Text,
                             DiagnosisId = 0,
                             PdfDocument = pdfFile
@@ -132,7 +141,7 @@ namespace ePregledi.WinUI.Forms.Examination
         private void BtnOpenPdf_Click(object sender, EventArgs e)
         {
             Guid g = Guid.NewGuid();
-            OpenInAnotherApp(pdfFile, $"{TxtMedicine.Text}_{g}.pdf");
+            OpenInAnotherApp(pdfFile, $"{CmbMedicine.SelectedItem}_{g}.pdf");
         }
         private static void OpenInAnotherApp(byte[] data, string filename)
         {
@@ -187,18 +196,6 @@ namespace ePregledi.WinUI.Forms.Examination
             else
             {
                 errorProvider1.SetError(TxtDescription, null);
-            }
-        }
-        private void TxtMedicine_Validating(object sender, CancelEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(TxtMedicine.Text))
-            {
-                errorProvider1.SetError(TxtMedicine, "Input can not be an empty string.");
-                e.Cancel = true;
-            }
-            else
-            {
-                errorProvider1.SetError(TxtMedicine, null);
             }
         }
         private void TxtInstructions_Validating(object sender, CancelEventArgs e)

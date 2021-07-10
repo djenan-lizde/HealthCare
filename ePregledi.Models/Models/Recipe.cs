@@ -7,8 +7,11 @@ namespace ePregledi.Models.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
-        public string Medicine { get; set; }
+
+        [ForeignKey(nameof(Medicine))]
+        public int MedicineId { get; set; }
+        public Medicine Medicine { get; set; }
+
         [Required]
         public string Instruction { get; set; }
 

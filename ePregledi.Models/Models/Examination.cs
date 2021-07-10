@@ -31,5 +31,17 @@ namespace ePregledi.Models.Models
         [ForeignKey(nameof(User))]
         public int PatientId { get; set; }
         public User Patient { get; set; }
+
+        [ForeignKey(nameof(Ambulance))]
+        public int AmbulanceId { get; set; }
+        public Ambulance Ambulance { get; set; }
+
+        [ForeignKey(nameof(Department))]
+        public int DepartmentId { get; set; }
+        public Department Department { get; set; }
+
+        [ForeignKey(nameof(Room))]
+        public int RoomId { get; set; }
+        public Room Room { get; set; }
     }
 }

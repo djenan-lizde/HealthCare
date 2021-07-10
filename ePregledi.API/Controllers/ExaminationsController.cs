@@ -18,18 +18,48 @@ namespace ePregledi.API.Controllers
         private readonly IDiagnosisService _diagnosisService;
         private readonly IRecipeService _recipeService;
         private readonly IReferralService _referralService;
+        private readonly IMedicineService _medicineService;
+        private readonly IRoomService _roomService;
+        private readonly IAmbulanceService _ambulanceService;
+        private readonly IDepartmentService _departmentService;
 
         public ExaminationsController(
             IExaminationService examinationService,
             IDiagnosisService diagnosisService,
             IRecipeService recipeService,
-            IReferralService referralService
+            IReferralService referralService,
+            IMedicineService medicineService,
+            IRoomService roomService,
+            IAmbulanceService ambulanceService,
+            IDepartmentService departmentService
             )
         {
             _examinationService = examinationService;
             _diagnosisService = diagnosisService;
             _recipeService = recipeService;
             _referralService = referralService;
+            _medicineService = medicineService;
+            _roomService = roomService;
+            _ambulanceService = ambulanceService;
+            _departmentService = departmentService;
+        }
+
+        [HttpGet("rooms")]
+        public IEnumerable<Room> GetRooms()
+        {
+            return _roomService.Get();
+        }
+
+        [HttpGet("ambulance")]
+        public IEnumerable<Ambulance> GetAmbulances()
+        {
+            return _ambulanceService.Get();
+        }
+
+        [HttpGet("department")]
+        public IEnumerable<Department> GetDepartments()
+        {
+            return _departmentService.Get();
         }
 
         [HttpGet("{examinationId}")]
@@ -87,6 +117,18 @@ namespace ePregledi.API.Controllers
             _referralService.Insert(exDet.Referral);
 
             return exDet;
+        }
+
+        [HttpGet("medicines")]
+        public IEnumerable<Medicine> GetMedicines()
+        {
+            return _medicineService.Get();
+        }
+
+        [HttpGet("medicine/{medicineId}")]
+        public Medicine GetMedicineById([FromRoute] int medicineId)
+        {
+            return _medicineService.GetById(medicineId);
         }
 
         [HttpPost("availability")]
