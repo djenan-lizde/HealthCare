@@ -10,12 +10,15 @@
             <Label Text="Datum pregleda" HorizontalOptions="CenterAndExpand" FontSize="Title" FontAttributes="Bold"/>
             <Label Text="{Binding ExaminationDate}" HorizontalOptions="CenterAndExpand"/>
 
+            <Label Text="Informacije o dijagnozi" HorizontalOptions="CenterAndExpand" FontSize="Title" FontAttributes="Bold"/>
             <Label Text="{Binding DiagnosisName}" HorizontalOptions="CenterAndExpand" FontSize="Medium" FontAttributes="None"/>
             <Editor Text="{Binding Description}" IsReadOnly="True"></Editor>
             <BoxView 
                    HeightRequest="1"
                    Color="LightGray"
                    Margin ="40, 0, 40, 0"/>
+
+            <Label Text="Informacije o lijeku" HorizontalOptions="CenterAndExpand" FontSize="Title" FontAttributes="Bold"/>
             <Label Text="{Binding Medicine}" HorizontalOptions="CenterAndExpand" FontSize="Medium" FontAttributes="None"/>
             <Editor Text="{Binding Instruction}" IsReadOnly="True"></Editor>
             <BoxView 

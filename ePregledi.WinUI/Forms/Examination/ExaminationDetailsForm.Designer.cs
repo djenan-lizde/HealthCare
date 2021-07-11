@@ -47,6 +47,7 @@ namespace ePregledi.WinUI.Forms.Examination
             this.TxtDiagnoseName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.Recipe = new System.Windows.Forms.TabPage();
+            this.CmbMedicine = new System.Windows.Forms.ComboBox();
             this.BtnOpenPdf = new System.Windows.Forms.Button();
             this.TxtPdfUploadbox = new System.Windows.Forms.TextBox();
             this.BtnUpload = new System.Windows.Forms.Button();
@@ -62,7 +63,6 @@ namespace ePregledi.WinUI.Forms.Examination
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.CmbMedicine = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicProfileBox)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -260,6 +260,15 @@ namespace ePregledi.WinUI.Forms.Examination
             this.Recipe.Text = "Recepti";
             this.Recipe.UseVisualStyleBackColor = true;
             // 
+            // CmbMedicine
+            // 
+            this.CmbMedicine.FormattingEnabled = true;
+            this.CmbMedicine.Location = new System.Drawing.Point(21, 45);
+            this.CmbMedicine.Name = "CmbMedicine";
+            this.CmbMedicine.Size = new System.Drawing.Size(750, 28);
+            this.CmbMedicine.TabIndex = 13;
+            this.CmbMedicine.Validating += new System.ComponentModel.CancelEventHandler(this.CmbMedicine_Validating);
+            // 
             // BtnOpenPdf
             // 
             this.BtnOpenPdf.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
@@ -408,14 +417,6 @@ namespace ePregledi.WinUI.Forms.Examination
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Ocijeni doktora";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
-            // CmbMedicine
-            // 
-            this.CmbMedicine.FormattingEnabled = true;
-            this.CmbMedicine.Location = new System.Drawing.Point(21, 45);
-            this.CmbMedicine.Name = "CmbMedicine";
-            this.CmbMedicine.Size = new System.Drawing.Size(750, 28);
-            this.CmbMedicine.TabIndex = 13;
             // 
             // ExaminationDetailsForm
             // 

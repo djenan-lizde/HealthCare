@@ -37,6 +37,7 @@ namespace ePregledi.WinUI.Forms.Examination
             {
                 BtnSave.Visible = false;
                 TxtPdfUploadbox.ReadOnly = true;
+                CmbMedicine.Enabled = false;
 
                 var medicine = await _apiServiceExamination.Get<List<Medicine>>(null, "medicines");
 
@@ -53,6 +54,7 @@ namespace ePregledi.WinUI.Forms.Examination
                 if (APIService.Role == "Doctor")
                 {
                     BtnSave.Visible = true;
+                    CmbMedicine.Enabled = true;
                 }
 
                 TxtFullName.Text = user.FullName;
@@ -126,7 +128,7 @@ namespace ePregledi.WinUI.Forms.Examination
                     MessageBox.Show("Uspjesno sacuvano.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Close();
                 }
-                catch (Exception exception)
+                catch (Exception)
                 {
                     MessageBox.Show("Doslo je do greske.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -232,6 +234,19 @@ namespace ePregledi.WinUI.Forms.Examination
             else
             {
                 errorProvider1.SetError(PriorityNumberPicker, null);
+            }
+        }
+
+        private void CmbMedicine_Validating(object sender, CancelEventArgs e)
+        {
+            if (CmbMedicine.SelectedIndex == 0 || CmbMedicine.SelectedIndex == -1)
+            {
+                errorProvider1.SetError(CmbMedicine, "You need to select option from combo box");
+                e.Cancel = true;
+            }
+            else
+            {
+                errorProvider1.SetError(CmbMedicine, null);
             }
         }
     }

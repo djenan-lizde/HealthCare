@@ -43,7 +43,7 @@ namespace ePregledi.MobileApp.ViewModels
 
                 if (data == null)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Information", "Wrong username or password", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Informacija", "Pogresni kredencijali", "OK");
                     return;
                 }
 
@@ -54,7 +54,7 @@ namespace ePregledi.MobileApp.ViewModels
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert(ex.Message, "Wrong username or password", "OK");
+                await Application.Current.MainPage.DisplayAlert("Informacija","Pogresni kredencijali", "OK");
                 return;
             }
         }
