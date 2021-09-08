@@ -47,6 +47,7 @@ namespace ePregledi.WinUI.Forms.Examination
             this.TxtDiagnoseName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.Recipe = new System.Windows.Forms.TabPage();
+            this.LblAddMedicine = new System.Windows.Forms.LinkLabel();
             this.CmbMedicine = new System.Windows.Forms.ComboBox();
             this.BtnOpenPdf = new System.Windows.Forms.Button();
             this.TxtPdfUploadbox = new System.Windows.Forms.TextBox();
@@ -244,6 +245,7 @@ namespace ePregledi.WinUI.Forms.Examination
             // 
             // Recipe
             // 
+            this.Recipe.Controls.Add(this.LblAddMedicine);
             this.Recipe.Controls.Add(this.CmbMedicine);
             this.Recipe.Controls.Add(this.BtnOpenPdf);
             this.Recipe.Controls.Add(this.TxtPdfUploadbox);
@@ -260,12 +262,24 @@ namespace ePregledi.WinUI.Forms.Examination
             this.Recipe.Text = "Recepti";
             this.Recipe.UseVisualStyleBackColor = true;
             // 
+            // LblAddMedicine
+            // 
+            this.LblAddMedicine.AutoSize = true;
+            this.LblAddMedicine.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblAddMedicine.Location = new System.Drawing.Point(681, 51);
+            this.LblAddMedicine.Name = "LblAddMedicine";
+            this.LblAddMedicine.Size = new System.Drawing.Size(72, 16);
+            this.LblAddMedicine.TabIndex = 23;
+            this.LblAddMedicine.TabStop = true;
+            this.LblAddMedicine.Text = "Dodaj lijek";
+            this.LblAddMedicine.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LblAddMedicine_LinkClicked);
+            // 
             // CmbMedicine
             // 
             this.CmbMedicine.FormattingEnabled = true;
             this.CmbMedicine.Location = new System.Drawing.Point(21, 45);
             this.CmbMedicine.Name = "CmbMedicine";
-            this.CmbMedicine.Size = new System.Drawing.Size(750, 28);
+            this.CmbMedicine.Size = new System.Drawing.Size(643, 28);
             this.CmbMedicine.TabIndex = 13;
             this.CmbMedicine.Validating += new System.ComponentModel.CancelEventHandler(this.CmbMedicine_Validating);
             // 
@@ -483,5 +497,6 @@ namespace ePregledi.WinUI.Forms.Examination
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Button BtnOpenPdf;
         private System.Windows.Forms.ComboBox CmbMedicine;
+        private System.Windows.Forms.LinkLabel LblAddMedicine;
     }
 }

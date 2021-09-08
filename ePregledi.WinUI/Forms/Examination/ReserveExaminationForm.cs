@@ -174,5 +174,23 @@ namespace ePregledi.WinUI.Forms.Examination
                 errorProvider1.SetError(CmbRooms, null);
             }
         }
+
+        private void LblAddAmublance_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            FrmAmbulance frm = new FrmAmbulance();
+            frm.Show();
+        }
+
+        private void LblDepartment_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            FrmDepartment frm = new FrmDepartment();
+            frm.Show();
+        }
+
+        private void LblRoom_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            FrmRoom frm = new FrmRoom();
+            frm.Show();
+        }
     }
 }

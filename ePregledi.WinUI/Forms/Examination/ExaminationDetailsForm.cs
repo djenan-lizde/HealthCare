@@ -249,5 +249,11 @@ namespace ePregledi.WinUI.Forms.Examination
                 errorProvider1.SetError(CmbMedicine, null);
             }
         }
+
+        private void LblAddMedicine_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            FrmMedicine frm = new FrmMedicine();
+            frm.Show();
+        }
     }
 }

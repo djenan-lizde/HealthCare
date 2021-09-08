@@ -74,6 +74,30 @@
     <Compile Include="Forms\Examination\ExaminationDetailsForm.Designer.cs">
       <DependentUpon>ExaminationDetailsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Examination\FrmAmbulance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Examination\FrmAmbulance.Designer.cs">
+      <DependentUpon>FrmAmbulance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Examination\FrmDepartment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Examination\FrmDepartment.Designer.cs">
+      <DependentUpon>FrmDepartment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Examination\FrmMedicine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Examination\FrmMedicine.Designer.cs">
+      <DependentUpon>FrmMedicine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Examination\FrmRoom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Examination\FrmRoom.Designer.cs">
+      <DependentUpon>FrmRoom.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Examination\RateDoctorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +139,18 @@
     </Compile>
     <EmbeddedResource Include="Forms\Examination\ExaminationDetailsForm.resx">
       <DependentUpon>ExaminationDetailsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Examination\FrmAmbulance.resx">
+      <DependentUpon>FrmAmbulance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Examination\FrmDepartment.resx">
+      <DependentUpon>FrmDepartment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Examination\FrmMedicine.resx">
+      <DependentUpon>FrmMedicine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Examination\FrmRoom.resx">
+      <DependentUpon>FrmRoom.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Examination\RateDoctorForm.resx">
       <DependentUpon>RateDoctorForm.cs</DependentUpon>

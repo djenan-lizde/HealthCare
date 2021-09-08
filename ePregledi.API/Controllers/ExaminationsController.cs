@@ -50,16 +50,34 @@ namespace ePregledi.API.Controllers
             return _roomService.Get();
         }
 
-        [HttpGet("ambulance")]
-        public List<Ambulance> GetAmbulances()
+        [HttpPost("rooms")]
+        public Room InsertRoom([FromBody] Room room)
         {
-            return _ambulanceService.Get().ToList();
+            return _roomService.Insert(room);
+        }
+
+        [HttpGet("ambulance")]
+        public IEnumerable<Ambulance> GetAmbulances()
+        {
+            return _ambulanceService.Get();
+        }
+
+        [HttpPost("ambulance")]
+        public Ambulance InsertAmbulance([FromBody] Ambulance ambulance)
+        {
+            return _ambulanceService.Insert(ambulance);
         }
 
         [HttpGet("department")]
         public IEnumerable<Department> GetDepartments()
         {
             return _departmentService.Get();
+        }
+
+        [HttpPost("department")]
+        public Department InsertDepartment([FromBody] Department department)
+        {
+            return _departmentService.Insert(department);
         }
 
         [HttpGet("{examinationId}")]
