@@ -255,5 +255,15 @@ namespace ePregledi.WinUI.Forms.Examination
             FrmMedicine frm = new FrmMedicine();
             frm.Show();
         }
+
+        private async void CmbMedicine_MouseClick(object sender, MouseEventArgs e)
+        {
+            var medicine = await _apiServiceExamination.Get<List<Medicine>>(null, "medicines");
+
+            medicine.Insert(0, new Medicine());
+            CmbMedicine.DataSource = medicine;
+            CmbMedicine.ValueMember = "Id";
+            CmbMedicine.DisplayMember = "Name";
+        }
     }
 }

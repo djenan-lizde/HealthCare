@@ -118,7 +118,7 @@ namespace ePregledi.WinUI.Forms.Examination
 
         private async void CmbAmbulance_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var departments = await _apiServiceExamination.Get<List<Department>>(null, "department");
+            List<Department> departments = await _apiServiceExamination.Get<List<Department>>(null, "department");
             CmbDepartment.Enabled = true;
             departments.Insert(0, new Department());
             CmbDepartment.DataSource = departments;
@@ -128,12 +128,17 @@ namespace ePregledi.WinUI.Forms.Examination
 
         private async void CmbDepartment_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var rooms = await _apiServiceExamination.Get<List<Room>>(null, "rooms");
+            List<Room> rooms = await _apiServiceExamination.Get<List<Room>>(null, "rooms");
             CmbRooms.Enabled = true;
-            rooms.Insert(0, new Room());
-            CmbRooms.DataSource = rooms;
+            List<RoomViewModel> roomsVm = new List<RoomViewModel>();
+            foreach (var room in rooms)
+            {
+                roomsVm.Add(new RoomViewModel { Id = room.Id, RoomName = $"{room.Name} {room.Number}" });
+            }
+            roomsVm.Insert(0, new RoomViewModel());
+            CmbRooms.DataSource = roomsVm;
             CmbRooms.ValueMember = "Id";
-            CmbRooms.DisplayMember = "Name";
+            CmbRooms.DisplayMember = "RoomName";
         }
 
         private void CmbDepartment_Validating(object sender, CancelEventArgs e)
@@ -191,6 +196,40 @@ namespace ePregledi.WinUI.Forms.Examination
         {
             FrmRoom frm = new FrmRoom();
             frm.Show();
+        }
+
+        private async void CmbAmbulance_MouseClick(object sender, MouseEventArgs e)
+        {
+            List<Ambulance> ambulances = await _apiServiceExamination.Get<List<Ambulance>>(null, "ambulance");
+            ambulances.Insert(0, new Ambulance());
+            CmbAmbulance.DataSource = ambulances;
+            CmbAmbulance.ValueMember = "Id";
+            CmbAmbulance.DisplayMember = "Name";
+        }
+
+        private async void CmbDepartment_MouseClick(object sender, MouseEventArgs e)
+        {
+            List<Department> departments = await _apiServiceExamination.Get<List<Department>>(null, "department");
+            CmbDepartment.Enabled = true;
+            departments.Insert(0, new Department());
+            CmbDepartment.DataSource = departments;
+            CmbDepartment.ValueMember = "Id";
+            CmbDepartment.DisplayMember = "Name";
+        }
+
+        private async void CmbRooms_MouseClick(object sender, MouseEventArgs e)
+        {
+            List<Room> rooms = await _apiServiceExamination.Get<List<Room>>(null, "rooms");
+            CmbRooms.Enabled = true;
+            List<RoomViewModel> roomsVm = new List<RoomViewModel>();
+            foreach (var room in rooms)
+            {
+                roomsVm.Add(new RoomViewModel { Id = room.Id, RoomName = $"{room.Name} {room.Number}" });
+            }
+            roomsVm.Insert(0, new RoomViewModel());
+            CmbRooms.DataSource = roomsVm;
+            CmbRooms.ValueMember = "Id";
+            CmbRooms.DisplayMember = "RoomName";
         }
     }
 }

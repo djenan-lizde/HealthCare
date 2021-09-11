@@ -84,6 +84,7 @@ namespace ePregledi.WinUI.Forms.Examination
             this.Name = "FrmMedicine";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmMedicine";
+            this.Load += new System.EventHandler(this.FrmMedicine_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

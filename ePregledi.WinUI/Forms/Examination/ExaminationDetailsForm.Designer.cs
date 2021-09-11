@@ -281,6 +281,7 @@ namespace ePregledi.WinUI.Forms.Examination
             this.CmbMedicine.Name = "CmbMedicine";
             this.CmbMedicine.Size = new System.Drawing.Size(643, 28);
             this.CmbMedicine.TabIndex = 13;
+            this.CmbMedicine.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CmbMedicine_MouseClick);
             this.CmbMedicine.Validating += new System.ComponentModel.CancelEventHandler(this.CmbMedicine_Validating);
             // 
             // BtnOpenPdf

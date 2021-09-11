@@ -143,6 +143,12 @@ namespace ePregledi.API.Controllers
             return _medicineService.Get();
         }
 
+        [HttpPost("medicine")]
+        public Medicine InsertMedicine(Medicine medicine)
+        {
+            return _medicineService.Insert(medicine);
+        }
+
         [HttpGet("medicine/{medicineId}")]
         public Medicine GetMedicineById([FromRoute] int medicineId)
         {

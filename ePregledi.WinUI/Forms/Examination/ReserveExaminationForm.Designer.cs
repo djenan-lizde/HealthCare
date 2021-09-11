@@ -155,6 +155,7 @@ namespace ePregledi.WinUI.Forms.Examination
             this.CmbAmbulance.Size = new System.Drawing.Size(278, 26);
             this.CmbAmbulance.TabIndex = 17;
             this.CmbAmbulance.SelectedIndexChanged += new System.EventHandler(this.CmbAmbulance_SelectedIndexChanged);
+            this.CmbAmbulance.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CmbAmbulance_MouseClick);
             this.CmbAmbulance.Validating += new System.ComponentModel.CancelEventHandler(this.CmbAmbulance_Validating);
             // 
             // label5
@@ -177,6 +178,7 @@ namespace ePregledi.WinUI.Forms.Examination
             this.CmbDepartment.Size = new System.Drawing.Size(278, 26);
             this.CmbDepartment.TabIndex = 19;
             this.CmbDepartment.SelectedIndexChanged += new System.EventHandler(this.CmbDepartment_SelectedIndexChanged);
+            this.CmbDepartment.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CmbDepartment_MouseClick);
             this.CmbDepartment.Validating += new System.ComponentModel.CancelEventHandler(this.CmbDepartment_Validating);
             // 
             // label6
@@ -198,6 +200,7 @@ namespace ePregledi.WinUI.Forms.Examination
             this.CmbRooms.Name = "CmbRooms";
             this.CmbRooms.Size = new System.Drawing.Size(278, 26);
             this.CmbRooms.TabIndex = 21;
+            this.CmbRooms.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CmbRooms_MouseClick);
             this.CmbRooms.Validating += new System.ComponentModel.CancelEventHandler(this.CmbRooms_Validating);
             // 
             // label7

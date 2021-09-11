@@ -54,5 +54,14 @@ namespace ePregledi.WinUI.Forms.Examination
                 errorProvider1.SetError(TxtMedicineName, null);
             }
         }
+
+        private void FrmMedicine_Load(object sender, EventArgs e)
+        {
+            if (APIService.Role.Equals("Patient"))
+            {
+                MessageBox.Show("Pacijent ne moze dodati lijek.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Close();
+            }
+        }
     }
 }
