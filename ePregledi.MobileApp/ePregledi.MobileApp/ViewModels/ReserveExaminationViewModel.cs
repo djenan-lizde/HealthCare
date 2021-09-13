@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using ePregledi.Models.Requests;
+using System.Linq;
 
 namespace ePregledi.MobileApp.ViewModels
 {
@@ -29,7 +30,7 @@ namespace ePregledi.MobileApp.ViewModels
                 {
                     var doctors = await _apiServiceUsers.Get<List<DoctorViewModel>>(null, "doctors");
                     if (doctors.Count > 0)
-                        foreach (var item in doctors)
+                        foreach (var item in doctors.ToList())
                             Doctors.Add(item);
                     else
                         await Application.Current.MainPage.DisplayAlert("Informacija", "Trenutno nemamo doktora", "OK");
@@ -39,8 +40,8 @@ namespace ePregledi.MobileApp.ViewModels
                 {
                     var ambulances = await _apiServiceExamination.Get<List<Ambulance>>(null, "ambulance");
                     if (ambulances.Count > 0)
-                        foreach (var item in ambulances)
-                            ambulances.Add(item);
+                        foreach (var item in ambulances.ToList())
+                            Ambulances.Add(item);
                     else
                         await Application.Current.MainPage.DisplayAlert("Informacija", "Trenutno nemamo ambulanti", "OK");
                 }
@@ -49,7 +50,7 @@ namespace ePregledi.MobileApp.ViewModels
                 {
                     var departments = await _apiServiceExamination.Get<List<Department>>(null, "department");
                     if (departments.Count > 0)
-                        foreach (var item in departments)
+                        foreach (var item in departments.ToList())
                             Departments.Add(item);
                     else
                         await Application.Current.MainPage.DisplayAlert("Informacija", "Trenutno nemamo odjela", "OK");
@@ -59,7 +60,7 @@ namespace ePregledi.MobileApp.ViewModels
                 {
                     var rooms = await _apiServiceExamination.Get<List<Room>>(null, "rooms");
                     if (rooms.Count > 0)
-                        foreach (var item in rooms)
+                        foreach (var item in rooms.ToList())
                             Rooms.Add(item);
                     else
                         await Application.Current.MainPage.DisplayAlert("Informacija", "Trenutno nemamo soba", "OK");
@@ -74,8 +75,10 @@ namespace ePregledi.MobileApp.ViewModels
                 }
 
                 RecommendedDoctor = doctor.FullName;
+
+
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 await Application.Current.MainPage.DisplayAlert("Informacija", "Doslo je do greske.", "OK");
                 return;

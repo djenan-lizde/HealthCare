@@ -80,7 +80,7 @@ namespace ePregledi.WinUI.Forms.Examination
                 linkLabel1.Visible = true;
                 TxtDiagnoseName.Text = ed.Diagnosis.DiagnosisName;
                 TxtDescription.Text = ed.Diagnosis.Description;
-                CmbMedicine.SelectedItem = ed.Recipe.MedicineId;
+                CmbMedicine.SelectedValue = ed.Recipe.MedicineId;
                 TxtInstructions.Text = ed.Recipe.Instruction;
                 PriorityNumberPicker.Value = ed.Referral.Priority;
                 TxtInformation.Text = ed.Referral.Info.ToString();
