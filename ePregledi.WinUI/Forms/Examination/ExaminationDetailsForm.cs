@@ -37,6 +37,7 @@ namespace ePregledi.WinUI.Forms.Examination
             {
                 BtnSave.Visible = false;
                 TxtPdfUploadbox.ReadOnly = true;
+                CmbDepartment.Enabled = false;
                 CmbMedicine.Enabled = false;
                 LblAddDepratment.Visible = false;
                 LblAddMedicine.Visible = false;
@@ -48,6 +49,13 @@ namespace ePregledi.WinUI.Forms.Examination
                 CmbMedicine.ValueMember = "Id";
                 CmbMedicine.DisplayMember = "Name";
 
+                var departments = await _apiServiceExamination.Get<List<Department>>(null, "department");
+
+                departments.Insert(0, new Department());
+                CmbDepartment.DataSource = departments;
+                CmbDepartment.ValueMember = "Id";
+                CmbDepartment.DisplayMember = "Name";
+
                 var user = await _apiServiceUser.GetById<PatientViewModel>(PatientId, "patient");
 
                 if (user == null)
@@ -57,6 +65,7 @@ namespace ePregledi.WinUI.Forms.Examination
                 {
                     BtnSave.Visible = true;
                     CmbMedicine.Enabled = true;
+                    CmbDepartment.Enabled = true;
                     LblAddDepratment.Visible = true;
                     LblAddMedicine.Visible = true;
                 }

@@ -103,7 +103,7 @@ namespace ePregledi.API.Services
                     DoctorId = x.DoctorId,
                     FirstName = x.Doctor.FirstName,
                     LastName = x.Doctor.LastName,
-                    NumberOfExaminations = _context.Examinations.Count(y => y.PatientId == patientId)
+                    NumberOfExaminations = _context.Examinations.Count(y => y.PatientId == patientId && y.DoctorId == x.DoctorId)
                 })
                 .OrderByDescending(x => x.NumberOfExaminations)
                 .Take(1)
