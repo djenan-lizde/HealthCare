@@ -17,5 +17,9 @@ namespace ePregledi.Models.Models
         [ForeignKey(nameof(Examination))]
         public int ExaminationId { get; set; }
         public Examination Examination { get; set; }
+
+        [ForeignKey(nameof(Department))]
+        public int DepartmentId { get; set; }
+        public Department Department { get; set; }
     }
 }

@@ -30,7 +30,7 @@
 
             <Picker HorizontalOptions="CenterAndExpand" Title="Izaberite sobu" FontSize="Medium"
                     ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom}" 
-                    ItemDisplayBinding="{Binding Name}"></Picker>
+                    ItemDisplayBinding="{Binding RoomName}"></Picker>
 
             <Button Command="{Binding SaveCommand}" Text="Rezerviraj" BackgroundColor="RoyalBlue" TextColor="White"></Button>
             

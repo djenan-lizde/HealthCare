@@ -38,6 +38,8 @@ namespace ePregledi.WinUI.Forms.Examination
                 BtnSave.Visible = false;
                 TxtPdfUploadbox.ReadOnly = true;
                 CmbMedicine.Enabled = false;
+                LblAddDepratment.Visible = false;
+                LblAddMedicine.Visible = false;
 
                 var medicine = await _apiServiceExamination.Get<List<Medicine>>(null, "medicines");
 
@@ -55,6 +57,8 @@ namespace ePregledi.WinUI.Forms.Examination
                 {
                     BtnSave.Visible = true;
                     CmbMedicine.Enabled = true;
+                    LblAddDepratment.Visible = true;
+                    LblAddMedicine.Visible = true;
                 }
 
                 TxtFullName.Text = user.FullName;
@@ -81,6 +85,7 @@ namespace ePregledi.WinUI.Forms.Examination
                 TxtDiagnoseName.Text = ed.Diagnosis.DiagnosisName;
                 TxtDescription.Text = ed.Diagnosis.Description;
                 CmbMedicine.SelectedValue = ed.Recipe.MedicineId;
+                CmbDepartment.SelectedValue = ed.Referral.DepartmentId;
                 TxtInstructions.Text = ed.Recipe.Instruction;
                 PriorityNumberPicker.Value = ed.Referral.Priority;
                 TxtInformation.Text = ed.Referral.Info.ToString();
@@ -119,7 +124,8 @@ namespace ePregledi.WinUI.Forms.Examination
                         {
                             Info = TxtInformation.Text,
                             Priority = (int)PriorityNumberPicker.Value,
-                            ExaminationId = ExaminationId
+                            ExaminationId = ExaminationId,
+                            DepartmentId = int.Parse(CmbDepartment.SelectedValue.ToString())
                         }
                     };
 
@@ -264,6 +270,21 @@ namespace ePregledi.WinUI.Forms.Examination
             CmbMedicine.DataSource = medicine;
             CmbMedicine.ValueMember = "Id";
             CmbMedicine.DisplayMember = "Name";
+        }
+
+        private void LblAddDepratment_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            FrmDepartment frm = new FrmDepartment();
+            frm.Show();
+        }
+
+        private async void CmbDepartment_MouseClick(object sender, MouseEventArgs e)
+        {
+            List<Department> departments = await _apiServiceExamination.Get<List<Department>>(null, "department");
+            departments.Insert(0, new Department());
+            CmbDepartment.DataSource = departments;
+            CmbDepartment.ValueMember = "Id";
+            CmbDepartment.DisplayMember = "Name";
         }
     }
 }
