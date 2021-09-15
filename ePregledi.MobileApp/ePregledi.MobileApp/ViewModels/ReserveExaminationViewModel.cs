@@ -160,8 +160,8 @@ namespace ePregledi.MobileApp.ViewModels
             set { SetProperty(ref _selectedDepartment, value); }
         }
 
-        Room _selectedRoom = null;
-        public Room SelectedRoom
+        RoomViewModel _selectedRoom = null;
+        public RoomViewModel SelectedRoom
         {
             get { return _selectedRoom; }
             set { SetProperty(ref _selectedRoom, value); }
