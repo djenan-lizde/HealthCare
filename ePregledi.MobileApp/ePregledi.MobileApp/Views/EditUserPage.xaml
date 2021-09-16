@@ -3,27 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ePregledi.MobileApp.Views.EditUserPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Uredi profil"
+        <ScrollView>
+            <StackLayout>
+                <Label Text="Uredi profil"
                 HorizontalOptions="CenterAndExpand" />
 
-            <Label  Text="Username" FontSize="Medium"></Label>
-            <Entry  Text="{Binding Username}" HorizontalTextAlignment="Center"></Entry>
+                <Label  Text="Username" FontSize="Medium"></Label>
+                <Entry  Text="{Binding Username}" HorizontalTextAlignment="Center"></Entry>
 
-            <Label  Text="Email" FontSize="Medium"></Label>
-            <Entry  Text="{Binding Email}" HorizontalTextAlignment="Center"></Entry>
+                <Label  Text="Email" FontSize="Medium"></Label>
+                <Entry  Text="{Binding Email}" HorizontalTextAlignment="Center"></Entry>
 
-            <Label  Text="Ime" FontSize="Medium"></Label>
-            <Entry  Text="{Binding FirstName}" HorizontalTextAlignment="Center"></Entry>
+                <Label  Text="Ime" FontSize="Medium"></Label>
+                <Entry  Text="{Binding FirstName}" HorizontalTextAlignment="Center"></Entry>
 
-            <Label  Text="Prezime" FontSize="Medium"></Label>
-            <Entry  Text="{Binding LastName}" HorizontalTextAlignment="Center"></Entry>
+                <Label  Text="Prezime" FontSize="Medium"></Label>
+                <Entry  Text="{Binding LastName}" HorizontalTextAlignment="Center"></Entry>
 
-            <Label  Text="Broj telefona" FontSize="Medium"></Label>
-            <Entry  Text="{Binding PhoneNumber}" HorizontalTextAlignment="Center"></Entry>
+                <Label  Text="Broj telefona" FontSize="Medium"></Label>
+                <Entry  Text="{Binding PhoneNumber}" HorizontalTextAlignment="Center"></Entry>
 
-            <Button Command="{Binding SaveCommand}"  HorizontalOptions="FillAndExpand" Text="Sacuvaj" BackgroundColor="RoyalBlue" TextColor="White" FontSize="Medium"></Button>
-            <Label IsVisible="{Binding IsBusy}" Text="..."></Label>
-        </StackLayout>
+                <Button Command="{Binding SaveCommand}"  HorizontalOptions="FillAndExpand" Text="Sacuvaj" BackgroundColor="RoyalBlue" TextColor="White" FontSize="Medium"></Button>
+                <Label IsVisible="{Binding IsBusy}" Text="..."></Label>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

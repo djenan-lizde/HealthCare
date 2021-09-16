@@ -27,13 +27,13 @@ namespace ePregledi.WinUI.Forms.Examination
             if (doctor == null)
                 return;
 
+            LblDoctor.Text = $"Doctor: {doctor.FullName}";
+
             if (doctor.DoctorId == APIService.UserId)
             {
                 MessageBox.Show("Ne mozete sami sebe ocjeniti.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Close();
             }
-
-            LblDoctor.Text = $"Doctor: {doctor.FullName}";
         }
 
         private async void BtnSave_Click(object sender, EventArgs e)

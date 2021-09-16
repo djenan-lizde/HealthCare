@@ -99,6 +99,10 @@ namespace ePregledi.WinUI.Forms.Examination
                 PriorityNumberPicker.Value = ed.Referral.Priority;
                 TxtInformation.Text = ed.Referral.Info.ToString();
                 pdfFile = ed.Recipe.PdfDocument;
+                if (pdfFile.Length != 0)
+                {
+                    TxtPdfUploadbox.Text = $"Uputstvo za lijek otvorite klikom na 'Uputstvo'.";
+                }
             }
             catch (Exception)
             {

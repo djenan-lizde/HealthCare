@@ -3,60 +3,61 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ePregledi.MobileApp.Views.SearchExaminationPage">
     <ContentPage.Content>
-        <StackLayout>
+        <ScrollView>
+            <StackLayout>
+                <StackLayout HorizontalOptions="CenterAndExpand">
+                    <Label Text="Pretraga pregleda" HorizontalOptions="Center" FontSize="Header"/>
 
-            <StackLayout HorizontalOptions="CenterAndExpand">
-                <Label Text="Pretraga pregleda" HorizontalOptions="Center" FontSize="Header"/>
+                    <Label HorizontalOptions="Center" Text="Ime i prezime pacijenta" FontSize="Medium" IsVisible="{Binding IsDoctor}"></Label>
+                    <Entry IsVisible="{Binding IsDoctor}" Text="{Binding FullName}"></Entry>
 
-                <Label HorizontalOptions="Center" Text="Ime i prezime pacijenta" FontSize="Medium" IsVisible="{Binding IsDoctor}"></Label>
-                <Entry IsVisible="{Binding IsDoctor}" Text="{Binding FullName}"></Entry>
+                    <Label HorizontalOptions="CenterAndExpand" Text="Datum pregleda" FontSize="Medium"></Label>
+                    <DatePicker Date="{Binding ExaminationDate}"></DatePicker>
 
-                <Label HorizontalOptions="CenterAndExpand" Text="Datum pregleda" FontSize="Medium"></Label>
-                <DatePicker Date="{Binding ExaminationDate}"></DatePicker>
-
-                <Picker HorizontalOptions="CenterAndExpand" Title="Izaberite doktora" FontSize="Medium"
+                    <Picker HorizontalOptions="CenterAndExpand" Title="Izaberite doktora" FontSize="Medium"
                     ItemsSource="{Binding Doctors}" SelectedItem="{Binding SelectedDoctor}" 
                     ItemDisplayBinding="{Binding FullName}" IsVisible="{Binding IsPatient}"></Picker>
 
-                <Button Command="{Binding SearchCommand}" HorizontalOptions="CenterAndExpand"
+                    <Button Command="{Binding SearchCommand}" HorizontalOptions="CenterAndExpand"
                         Text="Pretrazi" BackgroundColor="RoyalBlue" TextColor="White"></Button>
-            </StackLayout>
+                </StackLayout>
 
-            <StackLayout>
-                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Start" RowSpacing="0" BackgroundColor="LightCoral">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
-                    </Grid.RowDefinitions>
-                    <Label Grid.Column="0" Text="Pacijent" FontSize="Medium" HorizontalOptions="CenterAndExpand" TextColor="White"/>
-                    <Label Grid.Column="1" Text="Doktor" FontSize="Medium" HorizontalOptions="CenterAndExpand" TextColor="White"/>
-                    <Label Grid.Column="2" Text="Datum pregleda" FontSize="Medium" HorizontalOptions="CenterAndExpand" TextColor="White"/>
-                </Grid>
-                <ListView ItemsSource="{Binding Examinations}" ItemSelected="ListView_ItemSelected" HasUnevenRows="true" HeightRequest="200" SeparatorVisibility="None" BackgroundColor="WhiteSmoke">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <ViewCell.View>
-                                    <Grid Margin="10" Padding="10" RowSpacing="10">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" Margin="0" Text="{Binding PatientName}" HorizontalOptions="CenterAndExpand"/>
-                                        <Label Grid.Column="1" Margin="0" Text="{Binding DoctorName}" HorizontalOptions="CenterAndExpand"/>
-                                        <Label Grid.Column="2" Margin="0" Text="{Binding ExaminationDate}" HorizontalOptions="CenterAndExpand" />
-                                    </Grid>
-                                </ViewCell.View>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                <StackLayout>
+                    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="Start" RowSpacing="0" BackgroundColor="LightCoral">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Text="Pacijent" FontSize="Medium" HorizontalOptions="CenterAndExpand" TextColor="White"/>
+                        <Label Grid.Column="1" Text="Doktor" FontSize="Medium" HorizontalOptions="CenterAndExpand" TextColor="White"/>
+                        <Label Grid.Column="2" Text="Datum pregleda" FontSize="Medium" HorizontalOptions="CenterAndExpand" TextColor="White"/>
+                    </Grid>
+                    <ListView ItemsSource="{Binding Examinations}" ItemSelected="ListView_ItemSelected" HasUnevenRows="true" HeightRequest="200" SeparatorVisibility="None" BackgroundColor="WhiteSmoke">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.View>
+                                        <Grid Margin="10" Padding="10" RowSpacing="10">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Column="0" Margin="0" Text="{Binding PatientName}" HorizontalOptions="CenterAndExpand"/>
+                                            <Label Grid.Column="1" Margin="0" Text="{Binding DoctorName}" HorizontalOptions="CenterAndExpand"/>
+                                            <Label Grid.Column="2" Margin="0" Text="{Binding ExaminationDate}" HorizontalOptions="CenterAndExpand" />
+                                        </Grid>
+                                    </ViewCell.View>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
             </StackLayout>
-        </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

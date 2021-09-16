@@ -14,7 +14,7 @@
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                 <Label Text="Health care!" FontSize="Header"></Label>
             </StackLayout>
-            
+
             <Label  Text="Username" FontSize="Medium"></Label>
             <Entry  Text="{Binding Username}" HorizontalTextAlignment="Center"></Entry>
 
@@ -27,6 +27,5 @@
             <Label Text="Ako nemate korisnicki racun, kreirajte ga." HorizontalOptions="CenterAndExpand"></Label>
             <Button Command="{Binding RegisterCommand}" Text="Registruj se!" BackgroundColor="RoyalBlue" TextColor="White"></Button>
         </StackLayout>
-        
     </ContentPage.Content>
 </ContentPage>
