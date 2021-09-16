@@ -112,6 +112,11 @@ namespace ePregledi.WinUI.Forms.Examination
             {
                 try
                 {
+                    if (string.IsNullOrEmpty(TxtPdfUploadbox.Text))
+                    {
+                        MessageBox.Show("Molimo postavite dokument.", "Informacija", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
                     var exDet = new ExaminationDetails
                     {
                         ExaminationId = ExaminationId,
@@ -281,12 +286,6 @@ namespace ePregledi.WinUI.Forms.Examination
             CmbMedicine.DisplayMember = "Name";
         }
 
-        private void LblAddDepratment_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            FrmDepartment frm = new FrmDepartment();
-            frm.Show();
-        }
-
         private async void CmbDepartment_MouseClick(object sender, MouseEventArgs e)
         {
             List<Department> departments = await _apiServiceExamination.Get<List<Department>>(null, "department");
@@ -294,6 +293,12 @@ namespace ePregledi.WinUI.Forms.Examination
             CmbDepartment.DataSource = departments;
             CmbDepartment.ValueMember = "Id";
             CmbDepartment.DisplayMember = "Name";
+        }
+
+        private void LblAddDepratment_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            FrmDepartment frm = new FrmDepartment();
+            frm.Show();
         }
     }
 }

@@ -56,6 +56,9 @@ namespace ePregledi.WinUI.Forms.Examination
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.Referral = new System.Windows.Forms.TabPage();
+            this.LblAddDepratment = new System.Windows.Forms.LinkLabel();
+            this.CmbDepartment = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.PriorityNumberPicker = new System.Windows.Forms.NumericUpDown();
             this.TxtInformation = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -64,9 +67,6 @@ namespace ePregledi.WinUI.Forms.Examination
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.LblAddDepratment = new System.Windows.Forms.LinkLabel();
-            this.CmbDepartment = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PicProfileBox)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -368,6 +368,36 @@ namespace ePregledi.WinUI.Forms.Examination
             this.Referral.Text = "Uputnica";
             this.Referral.UseVisualStyleBackColor = true;
             // 
+            // LblAddDepratment
+            // 
+            this.LblAddDepratment.AutoSize = true;
+            this.LblAddDepratment.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblAddDepratment.Location = new System.Drawing.Point(694, 118);
+            this.LblAddDepratment.Name = "LblAddDepratment";
+            this.LblAddDepratment.Size = new System.Drawing.Size(78, 16);
+            this.LblAddDepratment.TabIndex = 29;
+            this.LblAddDepratment.TabStop = true;
+            this.LblAddDepratment.Text = "Dodaj odjel";
+            this.LblAddDepratment.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LblAddDepratment_LinkClicked);
+            // 
+            // CmbDepartment
+            // 
+            this.CmbDepartment.FormattingEnabled = true;
+            this.CmbDepartment.Location = new System.Drawing.Point(21, 112);
+            this.CmbDepartment.Name = "CmbDepartment";
+            this.CmbDepartment.Size = new System.Drawing.Size(667, 28);
+            this.CmbDepartment.TabIndex = 28;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(17, 89);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(45, 20);
+            this.label5.TabIndex = 27;
+            this.label5.Text = "Odjel";
+            // 
             // PriorityNumberPicker
             // 
             this.PriorityNumberPicker.Location = new System.Drawing.Point(21, 45);
@@ -438,35 +468,6 @@ namespace ePregledi.WinUI.Forms.Examination
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Ocijeni doktora";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
-            // LblAddDepratment
-            // 
-            this.LblAddDepratment.AutoSize = true;
-            this.LblAddDepratment.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblAddDepratment.Location = new System.Drawing.Point(694, 118);
-            this.LblAddDepratment.Name = "LblAddDepratment";
-            this.LblAddDepratment.Size = new System.Drawing.Size(78, 16);
-            this.LblAddDepratment.TabIndex = 29;
-            this.LblAddDepratment.TabStop = true;
-            this.LblAddDepratment.Text = "Dodaj odjel";
-            // 
-            // CmbDepartment
-            // 
-            this.CmbDepartment.FormattingEnabled = true;
-            this.CmbDepartment.Location = new System.Drawing.Point(21, 112);
-            this.CmbDepartment.Name = "CmbDepartment";
-            this.CmbDepartment.Size = new System.Drawing.Size(667, 28);
-            this.CmbDepartment.TabIndex = 28;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(17, 89);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(45, 20);
-            this.label5.TabIndex = 27;
-            this.label5.Text = "Odjel";
             // 
             // ExaminationDetailsForm
             // 
